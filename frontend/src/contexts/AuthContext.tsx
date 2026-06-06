@@ -7,6 +7,7 @@ interface AuthContextValue {
   login: (username: string, password: string) => Promise<void>
   logout: () => void
   canEdit: boolean
+  canViewWaivers: boolean
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -27,9 +28,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const canEdit = user !== null && EDIT_ROLES.includes(user.role)
+  const canViewWaivers = user !== null && user.role === 'ECDA_OFFICER'
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, canEdit }}>
+    <AuthContext.Provider value={{ user, login, logout, canEdit, canViewWaivers }}>
       {children}
     </AuthContext.Provider>
   )

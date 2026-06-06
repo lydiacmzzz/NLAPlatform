@@ -44,7 +44,7 @@ class SecurityConfig(private val jwtAuthFilter: JwtAuthFilter) {
             it.requestMatchers("/error").permitAll()
             it.requestMatchers("/api/auth/**").permitAll()
             it.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-            it.requestMatchers(HttpMethod.GET, "/api/centres/*/waivers").hasAnyRole("ECDA_OFFICER", "HQ_ADMIN")
+            it.requestMatchers(HttpMethod.GET, "/api/centres/*/waivers").hasRole("ECDA_OFFICER")
             it.requestMatchers(HttpMethod.GET, "/api/centres/**").hasAnyRole("ECDA_OFFICER", "HQ_ADMIN", "CENTRE_LEADER")
             it.requestMatchers(HttpMethod.POST, "/api/centres/**").hasAnyRole("ECDA_OFFICER", "HQ_ADMIN")
             it.requestMatchers(HttpMethod.PUT, "/api/centres/**").hasAnyRole("ECDA_OFFICER", "HQ_ADMIN")

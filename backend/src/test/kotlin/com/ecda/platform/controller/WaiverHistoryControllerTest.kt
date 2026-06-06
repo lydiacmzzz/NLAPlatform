@@ -57,11 +57,9 @@ class WaiverHistoryControllerTest {
 
     @Test
     @WithMockUser(roles = ["HQ_ADMIN"])
-    fun `GET waivers returns 200 for HQ_ADMIN`() {
-        every { centreService.getWaiverHistory(1L) } returns listOf(sampleWaiver())
-
+    fun `GET waivers returns 403 for HQ_ADMIN`() {
         mockMvc.get("/api/centres/1/waivers").andExpect {
-            status { isOk() }
+            status { isForbidden() }
         }
     }
 

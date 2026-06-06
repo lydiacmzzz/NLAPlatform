@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ecda.platform.controller.WaiverHistoryControllerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-06-06T07:37:43.315Z" hostname="DESKTOP-JMQ06C5" time="0.44">
+<testsuite name="com.ecda.platform.controller.WaiverHistoryControllerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-06-06T08:12:03.284Z" hostname="DESKTOP-JMQ06C5" time="0.384">
   <properties/>
-  <testcase name="GET waivers returns 403 for CENTRE_LEADER()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.008"/>
-  <testcase name="GET waivers includes supporting document fields()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.306"/>
-  <testcase name="GET waivers returns 200 for HQ_ADMIN()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.01"/>
-  <testcase name="GET waivers returns 404 when centre does not exist()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.012"/>
-  <testcase name="GET waivers returns 403 for unauthenticated user()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.009"/>
-  <testcase name="GET waivers includes officer remarks()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.014"/>
-  <testcase name="GET waivers returns empty list when no waivers exist()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.029"/>
-  <testcase name="GET waivers returns 200 for ECDA_OFFICER()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.014"/>
-  <system-out><![CDATA[2026-06-06T15:37:43.317+08:00  INFO 22388 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.ecda.platform.controller.WaiverHistoryControllerTest]: WaiverHistoryControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-06-06T15:37:43.330+08:00  INFO 22388 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.ecda.platform.EcdaApplication for test class com.ecda.platform.controller.WaiverHistoryControllerTest
-2026-06-06T15:37:43.345+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
-2026-06-06T15:37:43.346+08:00 DEBUG 22388 --- [    Test worker] o.s.s.w.access.AccessDeniedHandlerImpl   : Responding with 403 status code
-2026-06-06T15:37:43.381+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/List
+  <testcase name="GET waivers returns 403 for CENTRE_LEADER()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.006"/>
+  <testcase name="GET waivers includes supporting document fields()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.29"/>
+  <testcase name="GET waivers returns 404 when centre does not exist()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.01"/>
+  <testcase name="GET waivers returns 403 for unauthenticated user()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.006"/>
+  <testcase name="GET waivers includes officer remarks()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.009"/>
+  <testcase name="GET waivers returns 403 for HQ_ADMIN()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.005"/>
+  <testcase name="GET waivers returns empty list when no waivers exist()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.021"/>
+  <testcase name="GET waivers returns 200 for ECDA_OFFICER()" classname="com.ecda.platform.controller.WaiverHistoryControllerTest" time="0.011"/>
+  <system-out><![CDATA[2026-06-06T16:12:03.286+08:00  INFO 21604 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.ecda.platform.controller.WaiverHistoryControllerTest]: WaiverHistoryControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-06T16:12:03.295+08:00  INFO 21604 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.ecda.platform.EcdaApplication for test class com.ecda.platform.controller.WaiverHistoryControllerTest
+2026-06-06T16:12:03.304+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
+2026-06-06T16:12:03.305+08:00 DEBUG 21604 --- [    Test worker] o.s.s.w.access.AccessDeniedHandlerImpl   : Responding with 403 status code
+2026-06-06T16:12:03.335+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/List
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -44,7 +44,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at io.mockk.impl.instantiation.JvmMockFactoryHelper$mockHandler$1.invocation(JvmMockFactoryHelper.kt:24) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.proxy.jvm.advice.Interceptor.call(Interceptor.kt:21) ~[mockk-agent-jvm-1.13.8.jar:na]
 	at com.ecda.platform.service.CentreService.getWaiverHistory(CentreService.kt:166) ~[main/:na]
-	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET_waivers_includes_supporting_document_fields$lambda$0(WaiverHistoryControllerTest.kt:102) ~[test/:na]
+	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET_waivers_includes_supporting_document_fields$lambda$0(WaiverHistoryControllerTest.kt:100) ~[test/:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$record$block$1.invoke(RecordedBlockEvaluator.kt:24) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$enhanceWithRethrow$1.invoke(RecordedBlockEvaluator.kt:76) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.impl.recording.JvmAutoHinter.autoHint(JvmAutoHinter.kt:23) ~[mockk-jvm-1.13.8.jar:na]
@@ -52,7 +52,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at io.mockk.impl.eval.EveryBlockEvaluator.every(EveryBlockEvaluator.kt:30) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.MockKDsl.internalEvery(API.kt:94) ~[mockk-dsl-jvm-1.13.8.jar:na]
 	at io.mockk.MockKKt.every(MockK.kt:143) ~[mockk-jvm-1.13.8.jar:na]
-	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET waivers includes supporting document fields(WaiverHistoryControllerTest.kt:102) ~[test/:na]
+	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET waivers includes supporting document fields(WaiverHistoryControllerTest.kt:100) ~[test/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728) ~[junit-platform-commons-1.10.2.jar:1.10.2]
@@ -136,7 +136,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-06-06T15:37:43.394+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/SequencedCollection
+2026-06-06T16:12:03.348+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/SequencedCollection
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -167,7 +167,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at io.mockk.impl.instantiation.JvmMockFactoryHelper$mockHandler$1.invocation(JvmMockFactoryHelper.kt:24) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.proxy.jvm.advice.Interceptor.call(Interceptor.kt:21) ~[mockk-agent-jvm-1.13.8.jar:na]
 	at com.ecda.platform.service.CentreService.getWaiverHistory(CentreService.kt:166) ~[main/:na]
-	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET_waivers_includes_supporting_document_fields$lambda$0(WaiverHistoryControllerTest.kt:102) ~[test/:na]
+	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET_waivers_includes_supporting_document_fields$lambda$0(WaiverHistoryControllerTest.kt:100) ~[test/:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$record$block$1.invoke(RecordedBlockEvaluator.kt:24) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$enhanceWithRethrow$1.invoke(RecordedBlockEvaluator.kt:76) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.impl.recording.JvmAutoHinter.autoHint(JvmAutoHinter.kt:23) ~[mockk-jvm-1.13.8.jar:na]
@@ -175,7 +175,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at io.mockk.impl.eval.EveryBlockEvaluator.every(EveryBlockEvaluator.kt:30) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.MockKDsl.internalEvery(API.kt:94) ~[mockk-dsl-jvm-1.13.8.jar:na]
 	at io.mockk.MockKKt.every(MockK.kt:143) ~[mockk-jvm-1.13.8.jar:na]
-	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET waivers includes supporting document fields(WaiverHistoryControllerTest.kt:102) ~[test/:na]
+	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET waivers includes supporting document fields(WaiverHistoryControllerTest.kt:100) ~[test/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728) ~[junit-platform-commons-1.10.2.jar:1.10.2]
@@ -259,7 +259,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-06-06T15:37:43.407+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/Collection
+2026-06-06T16:12:03.361+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/Collection
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -290,7 +290,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at io.mockk.impl.instantiation.JvmMockFactoryHelper$mockHandler$1.invocation(JvmMockFactoryHelper.kt:24) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.proxy.jvm.advice.Interceptor.call(Interceptor.kt:21) ~[mockk-agent-jvm-1.13.8.jar:na]
 	at com.ecda.platform.service.CentreService.getWaiverHistory(CentreService.kt:166) ~[main/:na]
-	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET_waivers_includes_supporting_document_fields$lambda$0(WaiverHistoryControllerTest.kt:102) ~[test/:na]
+	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET_waivers_includes_supporting_document_fields$lambda$0(WaiverHistoryControllerTest.kt:100) ~[test/:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$record$block$1.invoke(RecordedBlockEvaluator.kt:24) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$enhanceWithRethrow$1.invoke(RecordedBlockEvaluator.kt:76) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.impl.recording.JvmAutoHinter.autoHint(JvmAutoHinter.kt:23) ~[mockk-jvm-1.13.8.jar:na]
@@ -298,7 +298,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at io.mockk.impl.eval.EveryBlockEvaluator.every(EveryBlockEvaluator.kt:30) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.MockKDsl.internalEvery(API.kt:94) ~[mockk-dsl-jvm-1.13.8.jar:na]
 	at io.mockk.MockKKt.every(MockK.kt:143) ~[mockk-jvm-1.13.8.jar:na]
-	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET waivers includes supporting document fields(WaiverHistoryControllerTest.kt:102) ~[test/:na]
+	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET waivers includes supporting document fields(WaiverHistoryControllerTest.kt:100) ~[test/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728) ~[junit-platform-commons-1.10.2.jar:1.10.2]
@@ -382,7 +382,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-06-06T15:37:43.417+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/Iterable
+2026-06-06T16:12:03.370+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/Iterable
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -413,7 +413,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at io.mockk.impl.instantiation.JvmMockFactoryHelper$mockHandler$1.invocation(JvmMockFactoryHelper.kt:24) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.proxy.jvm.advice.Interceptor.call(Interceptor.kt:21) ~[mockk-agent-jvm-1.13.8.jar:na]
 	at com.ecda.platform.service.CentreService.getWaiverHistory(CentreService.kt:166) ~[main/:na]
-	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET_waivers_includes_supporting_document_fields$lambda$0(WaiverHistoryControllerTest.kt:102) ~[test/:na]
+	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET_waivers_includes_supporting_document_fields$lambda$0(WaiverHistoryControllerTest.kt:100) ~[test/:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$record$block$1.invoke(RecordedBlockEvaluator.kt:24) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$enhanceWithRethrow$1.invoke(RecordedBlockEvaluator.kt:76) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.impl.recording.JvmAutoHinter.autoHint(JvmAutoHinter.kt:23) ~[mockk-jvm-1.13.8.jar:na]
@@ -421,7 +421,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at io.mockk.impl.eval.EveryBlockEvaluator.every(EveryBlockEvaluator.kt:30) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.MockKDsl.internalEvery(API.kt:94) ~[mockk-dsl-jvm-1.13.8.jar:na]
 	at io.mockk.MockKKt.every(MockK.kt:143) ~[mockk-jvm-1.13.8.jar:na]
-	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET waivers includes supporting document fields(WaiverHistoryControllerTest.kt:102) ~[test/:na]
+	at com.ecda.platform.controller.WaiverHistoryControllerTest.GET waivers includes supporting document fields(WaiverHistoryControllerTest.kt:100) ~[test/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728) ~[junit-platform-commons-1.10.2.jar:1.10.2]
@@ -505,20 +505,20 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-06-06T15:37:43.621+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
-2026-06-06T15:37:43.622+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /api/centres/1/waivers
-2026-06-06T15:37:43.664+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
-2026-06-06T15:37:43.664+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /api/centres/1/waivers
-2026-06-06T15:37:43.677+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/999/waivers
-2026-06-06T15:37:43.677+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /api/centres/999/waivers
-2026-06-06T15:37:43.688+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
-2026-06-06T15:37:43.689+08:00 DEBUG 22388 --- [    Test worker] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2026-06-06T15:37:43.701+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
-2026-06-06T15:37:43.701+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /api/centres/1/waivers
-2026-06-06T15:37:43.717+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
-2026-06-06T15:37:43.718+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /api/centres/1/waivers
-2026-06-06T15:37:43.749+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
-2026-06-06T15:37:43.749+08:00 DEBUG 22388 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /api/centres/1/waivers
+2026-06-06T16:12:03.562+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
+2026-06-06T16:12:03.562+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /api/centres/1/waivers
+2026-06-06T16:12:03.606+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/999/waivers
+2026-06-06T16:12:03.606+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /api/centres/999/waivers
+2026-06-06T16:12:03.615+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
+2026-06-06T16:12:03.615+08:00 DEBUG 21604 --- [    Test worker] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-06-06T16:12:03.623+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
+2026-06-06T16:12:03.623+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /api/centres/1/waivers
+2026-06-06T16:12:03.632+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
+2026-06-06T16:12:03.632+08:00 DEBUG 21604 --- [    Test worker] o.s.s.w.access.AccessDeniedHandlerImpl   : Responding with 403 status code
+2026-06-06T16:12:03.638+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
+2026-06-06T16:12:03.639+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /api/centres/1/waivers
+2026-06-06T16:12:03.662+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /api/centres/1/waivers
+2026-06-06T16:12:03.662+08:00 DEBUG 21604 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /api/centres/1/waivers
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

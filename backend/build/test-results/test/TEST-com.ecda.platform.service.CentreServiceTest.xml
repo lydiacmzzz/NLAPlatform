@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ecda.platform.service.CentreServiceTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-06T07:37:44.808Z" hostname="DESKTOP-JMQ06C5" time="0.855">
+<testsuite name="com.ecda.platform.service.CentreServiceTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-06T08:12:05.110Z" hostname="DESKTOP-JMQ06C5" time="1.425">
   <properties/>
-  <testcase name="createCentre saves centre and records lifecycle event()" classname="com.ecda.platform.service.CentreServiceTest" time="0.309"/>
-  <testcase name="searchCentres returns paged results()" classname="com.ecda.platform.service.CentreServiceTest" time="0.131"/>
-  <testcase name="updateCentre records STATUS_CHANGED event when status differs()" classname="com.ecda.platform.service.CentreServiceTest" time="0.067"/>
-  <testcase name="createCentre throws CONFLICT when centreId already exists()" classname="com.ecda.platform.service.CentreServiceTest" time="0.004"/>
-  <testcase name="getCentre throws NOT_FOUND for unknown id()" classname="com.ecda.platform.service.CentreServiceTest" time="0.004"/>
-  <system-out><![CDATA[2026-06-06T15:37:45.512+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/function/Supplier
+  <testcase name="createCentre saves centre and records lifecycle event()" classname="com.ecda.platform.service.CentreServiceTest" time="0.592"/>
+  <testcase name="searchCentres returns paged results()" classname="com.ecda.platform.service.CentreServiceTest" time="0.211"/>
+  <testcase name="updateCentre records STATUS_CHANGED event when status differs()" classname="com.ecda.platform.service.CentreServiceTest" time="0.076"/>
+  <testcase name="createCentre throws CONFLICT when centreId already exists()" classname="com.ecda.platform.service.CentreServiceTest" time="0.003"/>
+  <testcase name="getCentre throws NOT_FOUND for unknown id()" classname="com.ecda.platform.service.CentreServiceTest" time="0.003"/>
+  <system-out><![CDATA[2026-06-06T16:12:06.334+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/function/Supplier
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -134,7 +134,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-06-06T15:37:45.591+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/Optional
+2026-06-06T16:12:06.458+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/Optional
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]

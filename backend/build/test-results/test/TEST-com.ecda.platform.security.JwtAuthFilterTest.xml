@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ecda.platform.security.JwtAuthFilterTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-06-06T07:37:43.757Z" hostname="DESKTOP-JMQ06C5" time="0.693">
+<testsuite name="com.ecda.platform.security.JwtAuthFilterTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-06-06T08:12:03.670Z" hostname="DESKTOP-JMQ06C5" time="0.745">
   <properties/>
-  <testcase name="doFilterInternal handles token with special characters()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.334"/>
-  <testcase name="doFilterInternal always proceeds to filter chain()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.022"/>
-  <testcase name="doFilterInternal passes request through when token is invalid()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.007"/>
-  <testcase name="doFilterInternal clears previous authentication on each request()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.013"/>
+  <testcase name="doFilterInternal handles token with special characters()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.403"/>
+  <testcase name="doFilterInternal always proceeds to filter chain()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.027"/>
+  <testcase name="doFilterInternal passes request through when token is invalid()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.01"/>
+  <testcase name="doFilterInternal clears previous authentication on each request()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.018"/>
   <testcase name="doFilterInternal handles Bearer token with extra spaces()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.008"/>
-  <testcase name="doFilterInternal sets correct role from token()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.009"/>
+  <testcase name="doFilterInternal sets correct role from token()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.014"/>
   <testcase name="doFilterInternal passes request through when Authorization header is missing()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.005"/>
   <testcase name="doFilterInternal passes request through when Authorization header is empty()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.006"/>
-  <testcase name="doFilterInternal passes request through when Authorization header does not start with Bearer()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.005"/>
-  <testcase name="doFilterInternal extracts username from Bearer token correctly()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.008"/>
-  <testcase name="doFilterInternal sets authentication when valid token is provided()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.006"/>
-  <system-out><![CDATA[2026-06-06T15:37:44.152+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/StringBuffer
+  <testcase name="doFilterInternal passes request through when Authorization header does not start with Bearer()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.006"/>
+  <testcase name="doFilterInternal extracts username from Bearer token correctly()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.009"/>
+  <testcase name="doFilterInternal sets authentication when valid token is provided()" classname="com.ecda.platform.security.JwtAuthFilterTest" time="0.015"/>
+  <system-out><![CDATA[2026-06-06T16:12:04.044+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/StringBuffer
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -140,7 +140,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-06-06T15:37:44.160+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/Appendable
+2026-06-06T16:12:04.060+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/Appendable
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -268,7 +268,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-06-06T15:37:44.168+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/io/Serializable
+2026-06-06T16:12:04.081+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/io/Serializable
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -396,7 +396,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-06-06T15:37:44.177+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/Comparable
+2026-06-06T16:12:04.094+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/Comparable
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -524,7 +524,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-06-06T15:37:44.185+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/CharSequence
+2026-06-06T16:12:04.104+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/CharSequence
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -652,7 +652,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-06-06T15:37:44.200+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/AbstractStringBuilder
+2026-06-06T16:12:04.122+08:00  WARN 21604 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/lang/AbstractStringBuilder
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]

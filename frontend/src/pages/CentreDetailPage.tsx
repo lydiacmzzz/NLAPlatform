@@ -13,9 +13,9 @@ import { ErrorMessage } from '../components/common/ErrorMessage'
 export function CentreDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { canEdit } = useAuth()
+  const { canEdit, canViewWaivers } = useAuth()
   const { centre, loading, error, saving, update, reload } = useCentre(Number(id))
-  const { waivers, loading: waiversLoading } = useWaiverHistory(Number(id), canEdit)
+  const { waivers, loading: waiversLoading } = useWaiverHistory(Number(id), canViewWaivers)
 
   const handleFieldSave = async (field: string, value: string) => {
     await update({ [field]: field === 'capacity' ? Number(value) : value || undefined })
@@ -45,7 +45,7 @@ export function CentreDetailPage() {
           <KAHDetails kah={centre.currentKah} canEdit={canEdit} />
           <CentreContacts contacts={centre.contacts} />
           <CentreLifecycle events={centre.lifecycleEvents} />
-          {canEdit && <WaiverHistory waivers={waivers} loading={waiversLoading} />}
+          {canViewWaivers && <WaiverHistory waivers={waivers} loading={waiversLoading} />}
         </div>
       )}
     </div>

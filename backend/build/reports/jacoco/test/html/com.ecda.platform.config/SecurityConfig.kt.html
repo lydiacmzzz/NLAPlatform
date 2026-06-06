@@ -44,7 +44,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 <span class="fc" id="L44">            it.requestMatchers(&quot;/error&quot;).permitAll()</span>
 <span class="fc" id="L45">            it.requestMatchers(&quot;/api/auth/**&quot;).permitAll()</span>
 <span class="fc" id="L46">            it.requestMatchers(HttpMethod.OPTIONS, &quot;/**&quot;).permitAll()</span>
-<span class="fc" id="L47">            it.requestMatchers(HttpMethod.GET, &quot;/api/centres/*/waivers&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;)</span>
+<span class="fc" id="L47">            it.requestMatchers(HttpMethod.GET, &quot;/api/centres/*/waivers&quot;).hasRole(&quot;ECDA_OFFICER&quot;)</span>
 <span class="fc" id="L48">            it.requestMatchers(HttpMethod.GET, &quot;/api/centres/**&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;, &quot;CENTRE_LEADER&quot;)</span>
 <span class="fc" id="L49">            it.requestMatchers(HttpMethod.POST, &quot;/api/centres/**&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;)</span>
 <span class="fc" id="L50">            it.requestMatchers(HttpMethod.PUT, &quot;/api/centres/**&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;)</span>
