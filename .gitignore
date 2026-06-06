@@ -3,6 +3,8 @@ node_modules
 # Gradle
 .gradle/
 build/
+backend/build/
+backend/.gradle/
 
 # IntelliJ
 .idea/
@@ -17,3 +19,4 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
