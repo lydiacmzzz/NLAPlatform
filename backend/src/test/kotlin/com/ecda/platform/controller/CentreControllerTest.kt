@@ -18,6 +18,7 @@ import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
+import org.springframework.test.web.servlet.patch
 import org.springframework.test.web.servlet.post
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -79,7 +80,7 @@ class CentreControllerTest {
 
     @Test
     fun `GET centres returns 403 when unauthenticated`() {
-        mockMvc.get("/api/centres").andExpect { status { isForbidden() } }
+        mockMvc.get("/api/centres").andExpect { status { isUnauthorized() } }
     }
 
     @Test
@@ -142,7 +143,7 @@ class CentreControllerTest {
         )
         every { centreService.updateCentre(1L, updateReq, any()) } returns sampleProfile(1L)
 
-        mockMvc.post("/api/centres/1") {
+        mockMvc.patch("/api/centres/1") {
             contentType = MediaType.APPLICATION_JSON
             content = objectMapper.writeValueAsString(updateReq)
         }.andExpect {

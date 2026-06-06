@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ecda.platform.service.CentreServiceTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-05-31T07:03:45.172Z" hostname="DESKTOP-JMQ06C5" time="0.747">
+<testsuite name="com.ecda.platform.service.CentreServiceTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-06T07:37:44.808Z" hostname="DESKTOP-JMQ06C5" time="0.855">
   <properties/>
-  <testcase name="createCentre saves centre and records lifecycle event()" classname="com.ecda.platform.service.CentreServiceTest" time="0.304"/>
-  <testcase name="searchCentres returns paged results()" classname="com.ecda.platform.service.CentreServiceTest" time="0.092"/>
-  <testcase name="updateCentre records STATUS_CHANGED event when status differs()" classname="com.ecda.platform.service.CentreServiceTest" time="0.047"/>
-  <testcase name="createCentre throws CONFLICT when centreId already exists()" classname="com.ecda.platform.service.CentreServiceTest" time="0.003"/>
-  <testcase name="getCentre throws NOT_FOUND for unknown id()" classname="com.ecda.platform.service.CentreServiceTest" time="0.002"/>
-  <system-out><![CDATA[2026-05-31T15:03:45.807+08:00  WARN 2352 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/function/Supplier
+  <testcase name="createCentre saves centre and records lifecycle event()" classname="com.ecda.platform.service.CentreServiceTest" time="0.309"/>
+  <testcase name="searchCentres returns paged results()" classname="com.ecda.platform.service.CentreServiceTest" time="0.131"/>
+  <testcase name="updateCentre records STATUS_CHANGED event when status differs()" classname="com.ecda.platform.service.CentreServiceTest" time="0.067"/>
+  <testcase name="createCentre throws CONFLICT when centreId already exists()" classname="com.ecda.platform.service.CentreServiceTest" time="0.004"/>
+  <testcase name="getCentre throws NOT_FOUND for unknown id()" classname="com.ecda.platform.service.CentreServiceTest" time="0.004"/>
+  <system-out><![CDATA[2026-06-06T15:37:45.512+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/function/Supplier
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -41,7 +41,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at io.mockk.proxy.jvm.advice.Interceptor.call(Interceptor.kt:21) ~[mockk-agent-jvm-1.13.8.jar:na]
 	at io.mockk.proxy.jvm.advice.BaseAdvice.handle(BaseAdvice.kt:42) ~[mockk-agent-jvm-1.13.8.jar:na]
 	at io.mockk.proxy.jvm.advice.jvm.JvmMockKProxyInterceptor.interceptNoSuper(JvmMockKProxyInterceptor.java:45) ~[mockk-agent-jvm-1.13.8.jar:na]
-	at com.ecda.platform.repository.CentreRepository$Subclass1.findAll(Unknown Source) ~[main/:na]
+	at com.ecda.platform.repository.CentreRepository$Subclass7.findAll(Unknown Source) ~[main/:na]
 	at com.ecda.platform.service.CentreServiceTest.searchCentres_returns_paged_results$lambda$0(CentreServiceTest.kt:122) ~[test/:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$record$block$1.invoke(RecordedBlockEvaluator.kt:24) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$enhanceWithRethrow$1.invoke(RecordedBlockEvaluator.kt:76) ~[mockk-jvm-1.13.8.jar:na]
@@ -134,7 +134,7 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2026-05-31T15:03:45.872+08:00  WARN 2352 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/Optional
+2026-06-06T15:37:45.591+08:00  WARN 22388 --- [    Test worker] i.m.p.j.t.InliningClassTransformer       : Failed to transform class java/util/Optional
 
 java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current version of Byte Buddy which officially supports Java 23 (67) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
 	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:100) ~[byte-buddy-1.14.16.jar:na]
@@ -169,8 +169,8 @@ java.lang.IllegalArgumentException: Java 26 (70) is not supported by the current
 	at io.mockk.proxy.jvm.advice.Interceptor.call(Interceptor.kt:21) ~[mockk-agent-jvm-1.13.8.jar:na]
 	at io.mockk.proxy.jvm.advice.BaseAdvice.handle(BaseAdvice.kt:42) ~[mockk-agent-jvm-1.13.8.jar:na]
 	at io.mockk.proxy.jvm.advice.jvm.JvmMockKProxyInterceptor.interceptNoSuper(JvmMockKProxyInterceptor.java:45) ~[mockk-agent-jvm-1.13.8.jar:na]
-	at com.ecda.platform.repository.CentreRepository$Subclass1.findById(Unknown Source) ~[main/:na]
-	at com.ecda.platform.repository.CentreRepository$Subclass1.findById(Unknown Source) ~[main/:na]
+	at com.ecda.platform.repository.CentreRepository$Subclass7.findById(Unknown Source) ~[main/:na]
+	at com.ecda.platform.repository.CentreRepository$Subclass7.findById(Unknown Source) ~[main/:na]
 	at com.ecda.platform.service.CentreServiceTest.updateCentre_records_STATUS_CHANGED_event_when_status_differs$lambda$0(CentreServiceTest.kt:99) ~[test/:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$record$block$1.invoke(RecordedBlockEvaluator.kt:24) ~[mockk-jvm-1.13.8.jar:na]
 	at io.mockk.impl.eval.RecordedBlockEvaluator$enhanceWithRethrow$1.invoke(RecordedBlockEvaluator.kt:76) ~[mockk-jvm-1.13.8.jar:na]

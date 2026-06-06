@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ecda.platform.service.AuthServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-06-06T07:37:44.452Z" hostname="DESKTOP-JMQ06C5" time="0.356">
+  <properties/>
+  <testcase name="login throws UNAUTHORIZED for unknown user()" classname="com.ecda.platform.service.AuthServiceTest" time="0.156"/>
+  <testcase name="login throws UNAUTHORIZED for inactive user()" classname="com.ecda.platform.service.AuthServiceTest" time="0.003"/>
+  <testcase name="login throws UNAUTHORIZED for wrong password()" classname="com.ecda.platform.service.AuthServiceTest" time="0.008"/>
+  <testcase name="login returns token for valid credentials()" classname="com.ecda.platform.service.AuthServiceTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

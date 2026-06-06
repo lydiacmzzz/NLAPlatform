@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ecda.platform.service.WaiverHistoryServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-31T07:03:45.920Z" hostname="DESKTOP-JMQ06C5" time="0.031">
+<testsuite name="com.ecda.platform.service.WaiverHistoryServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-06-06T07:37:45.665Z" hostname="DESKTOP-JMQ06C5" time="0.041">
   <properties/>
-  <testcase name="getWaiverHistory returns multiple waivers across different statuses()" classname="com.ecda.platform.service.WaiverHistoryServiceTest" time="0.014"/>
+  <testcase name="getWaiverHistory returns multiple waivers across different statuses()" classname="com.ecda.platform.service.WaiverHistoryServiceTest" time="0.018"/>
   <testcase name="getWaiverHistory returns empty list when no waivers exist()" classname="com.ecda.platform.service.WaiverHistoryServiceTest" time="0.002"/>
-  <testcase name="getWaiverHistory throws NOT_FOUND for unknown centre()" classname="com.ecda.platform.service.WaiverHistoryServiceTest" time="0.003"/>
-  <testcase name="getWaiverHistory handles waivers with null optional fields()" classname="com.ecda.platform.service.WaiverHistoryServiceTest" time="0.002"/>
+  <testcase name="getWaiverHistory throws NOT_FOUND for unknown centre()" classname="com.ecda.platform.service.WaiverHistoryServiceTest" time="0.004"/>
+  <testcase name="getWaiverHistory handles waivers with null optional fields()" classname="com.ecda.platform.service.WaiverHistoryServiceTest" time="0.005"/>
   <testcase name="getWaiverHistory maps all DTO fields correctly()" classname="com.ecda.platform.service.WaiverHistoryServiceTest" time="0.003"/>
-  <testcase name="getWaiverHistory returns list of waiver DTOs for valid centre()" classname="com.ecda.platform.service.WaiverHistoryServiceTest" time="0.002"/>
+  <testcase name="getWaiverHistory returns list of waiver DTOs for valid centre()" classname="com.ecda.platform.service.WaiverHistoryServiceTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

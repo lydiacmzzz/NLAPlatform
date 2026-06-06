@@ -9,22 +9,22 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 
-<span class="nc" id="L12">@Service</span>
-<span class="nc" id="L13">class AuthService(</span>
-<span class="nc" id="L14">    private val userRepository: UserRepository,</span>
-<span class="nc" id="L15">    private val passwordEncoder: PasswordEncoder,</span>
-<span class="nc" id="L16">    private val jwtUtil: JwtUtil</span>
+<span class="fc" id="L12">@Service</span>
+<span class="fc" id="L13">class AuthService(</span>
+<span class="fc" id="L14">    private val userRepository: UserRepository,</span>
+<span class="fc" id="L15">    private val passwordEncoder: PasswordEncoder,</span>
+<span class="fc" id="L16">    private val jwtUtil: JwtUtil</span>
 ) {
     fun login(req: LoginRequest): LoginResponse {
-<span class="nc bnc" id="L19" title="All 2 branches missed.">        val user = userRepository.findByUsername(req.username)</span>
-<span class="nc" id="L20">            ?: throw ResponseStatusException(HttpStatus.UNAUTHORIZED, &quot;Invalid credentials&quot;)</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        val user = userRepository.findByUsername(req.username)</span>
+<span class="fc" id="L20">            ?: throw ResponseStatusException(HttpStatus.UNAUTHORIZED, &quot;Invalid credentials&quot;)</span>
 
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        if (!user.isActive) throw ResponseStatusException(HttpStatus.UNAUTHORIZED, &quot;Account is inactive&quot;)</span>
-<span class="nc bnc" id="L23" title="All 2 branches missed.">        if (!passwordEncoder.matches(req.password, user.passwordHash))</span>
-<span class="nc" id="L24">            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, &quot;Invalid credentials&quot;)</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (!user.isActive) throw ResponseStatusException(HttpStatus.UNAUTHORIZED, &quot;Account is inactive&quot;)</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (!passwordEncoder.matches(req.password, user.passwordHash))</span>
+<span class="fc" id="L24">            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, &quot;Invalid credentials&quot;)</span>
 
-<span class="nc" id="L26">        val token = jwtUtil.generateToken(user.username, user.role.name)</span>
-<span class="nc" id="L27">        return LoginResponse(token, user.username, user.role, user.fullName)</span>
+<span class="fc" id="L26">        val token = jwtUtil.generateToken(user.username, user.role.name)</span>
+<span class="fc" id="L27">        return LoginResponse(token, user.username, user.role, user.fullName)</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

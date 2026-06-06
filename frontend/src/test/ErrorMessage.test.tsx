@@ -26,7 +26,9 @@ describe('ErrorMessage', () => {
 
   it('should call onRetry when retry button is clicked', async () => {
     const onRetry = vi.fn()
-    const { user } = render(<ErrorMessage message="Error" onRetry={onRetry} />)
+    const user = userEvent.setup()
+
+    render(<ErrorMessage message="Error" onRetry={onRetry} />)
 
     await user.click(screen.getByRole('button', { name: /retry/i }))
 

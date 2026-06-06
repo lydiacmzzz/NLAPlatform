@@ -6,38 +6,38 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 
 <span class="fc" id="L8">data class CentreProfileDto(</span>
-<span class="pc" id="L9">    val id: Long,</span>
+<span class="fc" id="L9">    val id: Long,</span>
 <span class="fc" id="L10">    val centreId: String,</span>
-<span class="pc" id="L11">    val licenceNumber: String,</span>
-<span class="pc" id="L12">    val name: String,</span>
-<span class="pc" id="L13">    val centreType: CentreType,</span>
-<span class="pc" id="L14">    val address: String,</span>
-<span class="pc" id="L15">    val postalCode: String,</span>
-<span class="pc" id="L16">    val operatingHours: String?,</span>
-<span class="pc" id="L17">    val capacity: Int,</span>
-<span class="pc" id="L18">    val licenceStatus: LicenceStatus,</span>
-<span class="pc" id="L19">    val licenceIssueDate: LocalDate?,</span>
-<span class="pc" id="L20">    val licenceExpiryDate: LocalDate?,</span>
-<span class="pc" id="L21">    val renewalDueDate: LocalDate?,</span>
-<span class="pc" id="L22">    val applicationStage: String?,</span>
-<span class="pc" id="L23">    val updatedAt: OffsetDateTime,</span>
-<span class="pc" id="L24">    val updatedBy: String?,</span>
-<span class="pc" id="L25">    val currentKah: KahDetailDto?,</span>
-<span class="pc" id="L26">    val contacts: List&lt;CentreContactDto&gt;,</span>
-<span class="pc" id="L27">    val lifecycleEvents: List&lt;LifecycleEventDto&gt;</span>
+<span class="fc" id="L11">    val licenceNumber: String,</span>
+<span class="fc" id="L12">    val name: String,</span>
+<span class="fc" id="L13">    val centreType: CentreType,</span>
+<span class="fc" id="L14">    val address: String,</span>
+<span class="fc" id="L15">    val postalCode: String,</span>
+<span class="fc" id="L16">    val operatingHours: String?,</span>
+<span class="fc" id="L17">    val capacity: Int,</span>
+<span class="fc" id="L18">    val licenceStatus: LicenceStatus,</span>
+<span class="fc" id="L19">    val licenceIssueDate: LocalDate?,</span>
+<span class="fc" id="L20">    val licenceExpiryDate: LocalDate?,</span>
+<span class="fc" id="L21">    val renewalDueDate: LocalDate?,</span>
+<span class="fc" id="L22">    val applicationStage: String?,</span>
+<span class="fc" id="L23">    val updatedAt: OffsetDateTime,</span>
+<span class="fc" id="L24">    val updatedBy: String?,</span>
+<span class="fc" id="L25">    val currentKah: KahDetailDto?,</span>
+<span class="fc" id="L26">    val contacts: List&lt;CentreContactDto&gt;,</span>
+<span class="fc" id="L27">    val lifecycleEvents: List&lt;LifecycleEventDto&gt;</span>
 )
 
 <span class="fc" id="L30">data class CentreSummaryDto(</span>
-<span class="pc" id="L31">    val id: Long,</span>
+<span class="fc" id="L31">    val id: Long,</span>
 <span class="fc" id="L32">    val centreId: String,</span>
-<span class="pc" id="L33">    val licenceNumber: String,</span>
-<span class="pc" id="L34">    val name: String,</span>
-<span class="pc" id="L35">    val centreType: CentreType,</span>
-<span class="pc" id="L36">    val postalCode: String,</span>
-<span class="pc" id="L37">    val licenceStatus: LicenceStatus,</span>
-<span class="pc" id="L38">    val licenceExpiryDate: LocalDate?,</span>
-<span class="pc" id="L39">    val renewalDueDate: LocalDate?,</span>
-<span class="pc" id="L40">    val updatedAt: OffsetDateTime</span>
+<span class="fc" id="L33">    val licenceNumber: String,</span>
+<span class="fc" id="L34">    val name: String,</span>
+<span class="fc" id="L35">    val centreType: CentreType,</span>
+<span class="fc" id="L36">    val postalCode: String,</span>
+<span class="fc" id="L37">    val licenceStatus: LicenceStatus,</span>
+<span class="fc" id="L38">    val licenceExpiryDate: LocalDate?,</span>
+<span class="fc" id="L39">    val renewalDueDate: LocalDate?,</span>
+<span class="fc" id="L40">    val updatedAt: OffsetDateTime</span>
 )
 
 <span class="pc" id="L43">data class CreateCentreRequest(</span>
@@ -136,9 +136,9 @@ import java.time.OffsetDateTime
 <span class="fc" id="L136">data class PagedResponse&lt;T&gt;(</span>
 <span class="fc" id="L137">    val content: List&lt;T&gt;,</span>
 <span class="fc" id="L138">    val totalElements: Long,</span>
-<span class="pc" id="L139">    val totalPages: Int,</span>
-<span class="pc" id="L140">    val page: Int,</span>
-<span class="pc" id="L141">    val size: Int</span>
+<span class="fc" id="L139">    val totalPages: Int,</span>
+<span class="fc" id="L140">    val page: Int,</span>
+<span class="fc" id="L141">    val size: Int</span>
 )
 
 <span class="fc" id="L144">data class WaiverHistoryDto(</span>

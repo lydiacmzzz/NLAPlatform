@@ -3,34 +3,34 @@
 import jakarta.persistence.*
 import java.time.OffsetDateTime
 
-<span class="nc" id="L6">enum class UserRole { ECDA_OFFICER, HQ_ADMIN, CENTRE_LEADER }</span>
+<span class="fc" id="L6">enum class UserRole { ECDA_OFFICER, HQ_ADMIN, CENTRE_LEADER }</span>
 
-<span class="nc" id="L8">@Entity</span>
+<span class="fc" id="L8">@Entity</span>
 @Table(name = &quot;users&quot;)
-<span class="nc" id="L10">data class User(</span>
-<span class="nc" id="L11">    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)</span>
+<span class="fc" id="L10">data class User(</span>
+<span class="fc" id="L11">    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)</span>
 <span class="nc" id="L12">    val id: Long = 0,</span>
 
-<span class="nc" id="L14">    @Column(nullable = false, unique = true)</span>
-<span class="nc" id="L15">    val username: String = &quot;&quot;,</span>
+<span class="fc" id="L14">    @Column(nullable = false, unique = true)</span>
+<span class="pc" id="L15">    val username: String = &quot;&quot;,</span>
 
-<span class="nc" id="L17">    @Column(nullable = false, unique = true)</span>
+<span class="fc" id="L17">    @Column(nullable = false, unique = true)</span>
 <span class="nc" id="L18">    val email: String = &quot;&quot;,</span>
 
-<span class="nc" id="L20">    @Column(name = &quot;password_hash&quot;, nullable = false)</span>
-<span class="nc" id="L21">    val passwordHash: String = &quot;&quot;,</span>
+<span class="fc" id="L20">    @Column(name = &quot;password_hash&quot;, nullable = false)</span>
+<span class="pc" id="L21">    val passwordHash: String = &quot;&quot;,</span>
 
-<span class="nc" id="L23">    @Enumerated(EnumType.STRING)</span>
+<span class="fc" id="L23">    @Enumerated(EnumType.STRING)</span>
     @Column(nullable = false)
-<span class="nc" id="L25">    val role: UserRole = UserRole.ECDA_OFFICER,</span>
+<span class="pc" id="L25">    val role: UserRole = UserRole.ECDA_OFFICER,</span>
 
-<span class="nc" id="L27">    @Column(name = &quot;full_name&quot;)</span>
-<span class="nc" id="L28">    val fullName: String? = null,</span>
+<span class="fc" id="L27">    @Column(name = &quot;full_name&quot;)</span>
+<span class="fc" id="L28">    val fullName: String? = null,</span>
 
-<span class="nc" id="L30">    @Column(name = &quot;is_active&quot;, nullable = false)</span>
-<span class="nc" id="L31">    val isActive: Boolean = true,</span>
+<span class="fc" id="L30">    @Column(name = &quot;is_active&quot;, nullable = false)</span>
+<span class="pc" id="L31">    val isActive: Boolean = true,</span>
 
-<span class="nc" id="L33">    @Column(name = &quot;created_at&quot;, nullable = false, updatable = false)</span>
-<span class="nc" id="L34">    val createdAt: OffsetDateTime = OffsetDateTime.now()</span>
-<span class="nc" id="L35">)</span>
+<span class="fc" id="L33">    @Column(name = &quot;created_at&quot;, nullable = false, updatable = false)</span>
+<span class="pc" id="L34">    val createdAt: OffsetDateTime = OffsetDateTime.now()</span>
+<span class="fc" id="L35">)</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

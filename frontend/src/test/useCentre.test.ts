@@ -111,8 +111,10 @@ describe('useCentre', () => {
     const updateResult = await result.current.update(updateRequest)
 
     expect(updateResult).toBe(true)
-    expect(result.current.centre).toEqual(updatedData)
-    expect(result.current.saving).toBe(false)
+    await waitFor(() => {
+      expect(result.current.centre).toEqual(updatedData)
+      expect(result.current.saving).toBe(false)
+    })
     expect(centreService.update).toHaveBeenCalledWith(1, updateRequest)
   })
 
@@ -130,8 +132,10 @@ describe('useCentre', () => {
     const updateResult = await result.current.update(updateRequest)
 
     expect(updateResult).toBe(false)
-    expect(result.current.error).toBe('Failed to save changes.')
-    expect(result.current.saving).toBe(false)
+    await waitFor(() => {
+      expect(result.current.error).toBe('Failed to save changes.')
+      expect(result.current.saving).toBe(false)
+    })
   })
 
   it('should set saving=true during update', async () => {
@@ -151,10 +155,14 @@ describe('useCentre', () => {
 
     const updatePromise = result.current.update({})
 
-    expect(result.current.saving).toBe(true)
+    await waitFor(() => {
+      expect(result.current.saving).toBe(true)
+    })
 
     await updatePromise
-    expect(result.current.saving).toBe(false)
+    await waitFor(() => {
+      expect(result.current.saving).toBe(false)
+    })
   })
 
   it('should manually reload centre data', async () => {

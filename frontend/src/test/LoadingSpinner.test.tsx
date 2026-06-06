@@ -21,7 +21,7 @@ describe('LoadingSpinner', () => {
 
   it('should have spinner with rotation animation', () => {
     const { container } = render(<LoadingSpinner />)
-    const spinner = container.querySelector('div[style*="borderRadius"]')
+    const spinner = container.querySelector('div[style*="border-radius"]')
     expect(spinner).toBeInTheDocument()
     expect(spinner).toHaveStyle('animation: spin 0.8s linear infinite')
   })

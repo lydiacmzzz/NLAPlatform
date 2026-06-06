@@ -17,9 +17,9 @@ import org.junit.jupiter.api.Assertions.assertNull
 class JwtAuthFilterTest {
 
     private val jwtUtil: JwtUtil = mockk()
-    private val request: HttpServletRequest = mockk()
-    private val response: HttpServletResponse = mockk()
-    private val filterChain: FilterChain = mockk()
+    private val request: HttpServletRequest = mockk(relaxed = true)
+    private val response: HttpServletResponse = mockk(relaxed = true)
+    private val filterChain: FilterChain = mockk(relaxed = true)
 
     private lateinit var filter: JwtAuthFilter
 

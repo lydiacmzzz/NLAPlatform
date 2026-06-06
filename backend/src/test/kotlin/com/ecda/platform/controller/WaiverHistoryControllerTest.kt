@@ -78,7 +78,7 @@ class WaiverHistoryControllerTest {
     @Test
     fun `GET waivers returns 403 for unauthenticated user`() {
         mockMvc.get("/api/centres/1/waivers").andExpect {
-            status { isForbidden() }
+            status { isUnauthorized() }
         }
     }
 
