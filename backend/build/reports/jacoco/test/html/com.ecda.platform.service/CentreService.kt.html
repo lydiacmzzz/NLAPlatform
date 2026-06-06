@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CentreService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centre-profile-information</a> &gt; <a href="index.source.html" class="el_package">com.ecda.platform.service</a> &gt; <span class="el_source">CentreService.kt</span></div><h1>CentreService.kt</h1><pre class="source lang-java linenums">package com.ecda.platform.service
+
+import com.ecda.platform.dto.*
+import com.ecda.platform.model.*
+import com.ecda.platform.repository.*
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
+import org.springframework.data.jpa.domain.Specification
+import org.springframework.http.HttpStatus
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.server.ResponseStatusException
+import java.time.OffsetDateTime
+
+<span class="fc" id="L15">@Service</span>
+@Transactional
+<span class="fc" id="L17">class CentreService(</span>
+<span class="fc" id="L18">    private val centreRepository: CentreRepository,</span>
+<span class="fc" id="L19">    private val kahDetailRepository: KahDetailRepository,</span>
+<span class="fc" id="L20">    private val lifecycleEventRepository: CentreLifecycleEventRepository,</span>
+<span class="fc" id="L21">    private val waiverHistoryRepository: WaiverHistoryRepository</span>
+) {
+
+    @Transactional(readOnly = true)
+    fun searchCentres(req: CentreSearchRequest): PagedResponse&lt;CentreSummaryDto&gt; {
+<span class="fc" id="L26">        val sort = buildSort(req.sortBy, req.sortDir)</span>
+<span class="fc" id="L27">        val pageable = PageRequest.of(req.page, req.size, sort)</span>
+<span class="fc" id="L28">        val page = centreRepository.findAll(buildSpec(req), pageable)</span>
+<span class="fc" id="L29">        return PagedResponse(</span>
+<span class="fc" id="L30">            content = page.content.map { it.toSummaryDto() },</span>
+<span class="fc" id="L31">            totalElements = page.totalElements,</span>
+<span class="fc" id="L32">            totalPages = page.totalPages,</span>
+<span class="fc" id="L33">            page = page.number,</span>
+<span class="fc" id="L34">            size = page.size</span>
+        )
+    }
+
+<span class="fc" id="L38">    private fun buildSpec(req: CentreSearchRequest): Specification&lt;Centre&gt; = Specification { root, _, cb -&gt;</span>
+<span class="nc" id="L39">        val predicates = mutableListOf&lt;jakarta.persistence.criteria.Predicate&gt;()</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        req.query?.let { q -&gt;</span>
+<span class="nc" id="L41">            val pattern = &quot;%${q.lowercase()}%&quot;</span>
+<span class="nc" id="L42">            predicates.add(cb.or(</span>
+<span class="nc" id="L43">                cb.like(cb.lower(root.get(&quot;name&quot;)), pattern),</span>
+<span class="nc" id="L44">                cb.like(cb.lower(root.get(&quot;licenceNumber&quot;)), pattern),</span>
+<span class="nc" id="L45">                cb.like(cb.lower(root.get(&quot;postalCode&quot;)), pattern)</span>
+<span class="nc" id="L46">            ))</span>
+        }
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        req.centreType?.let { predicates.add(cb.equal(root.get&lt;CentreType&gt;(&quot;centreType&quot;), it)) }</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        req.licenceStatus?.let { predicates.add(cb.equal(root.get&lt;LicenceStatus&gt;(&quot;licenceStatus&quot;), it)) }</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        req.renewalDueBefore?.let { predicates.add(cb.lessThanOrEqualTo(root.get(&quot;renewalDueDate&quot;), it)) }</span>
+<span class="nc" id="L51">        cb.and(*predicates.toTypedArray())</span>
+<span class="fc" id="L52">    }</span>
+
+    @Transactional(readOnly = true)
+<span class="nc" id="L55">    fun getCentre(id: Long): CentreProfileDto = findCentreOrThrow(id).toProfileDto()</span>
+
+    @Transactional(readOnly = true)
+    fun getCentreByCentreId(centreId: String): CentreProfileDto =
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        (centreRepository.findByCentreId(centreId) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Centre not found&quot;)).toProfileDto()</span>
+
+    fun createCentre(req: CreateCentreRequest, actor: String): CentreProfileDto {
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (centreRepository.existsByCentreId(req.centreId))</span>
+<span class="fc" id="L63">            throw ResponseStatusException(HttpStatus.CONFLICT, &quot;Centre ID already exists&quot;)</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if (centreRepository.existsByLicenceNumber(req.licenceNumber))</span>
+<span class="nc" id="L65">            throw ResponseStatusException(HttpStatus.CONFLICT, &quot;Licence number already exists&quot;)</span>
+
+<span class="fc" id="L67">        val centre = centreRepository.save(</span>
+<span class="fc" id="L68">            Centre(</span>
+<span class="fc" id="L69">                centreId = req.centreId,</span>
+<span class="fc" id="L70">                licenceNumber = req.licenceNumber,</span>
+<span class="fc" id="L71">                name = req.name,</span>
+<span class="fc" id="L72">                centreType = req.centreType,</span>
+<span class="fc" id="L73">                address = req.address,</span>
+<span class="fc" id="L74">                postalCode = req.postalCode,</span>
+<span class="fc" id="L75">                operatingHours = req.operatingHours,</span>
+<span class="fc" id="L76">                capacity = req.capacity,</span>
+<span class="fc" id="L77">                licenceStatus = req.licenceStatus,</span>
+<span class="fc" id="L78">                licenceIssueDate = req.licenceIssueDate,</span>
+<span class="fc" id="L79">                licenceExpiryDate = req.licenceExpiryDate,</span>
+<span class="fc" id="L80">                renewalDueDate = req.renewalDueDate,</span>
+<span class="fc" id="L81">                updatedBy = actor</span>
+            )
+        )
+<span class="fc" id="L84">        recordEvent(centre, &quot;CENTRE_REGISTERED&quot;, &quot;Centre registered in the system&quot;, actor)</span>
+<span class="fc" id="L85">        return centre.toProfileDto()</span>
+    }
+
+    fun updateCentre(id: Long, req: UpdateCentreRequest, actor: String): CentreProfileDto {
+<span class="fc" id="L89">        val centre = findCentreOrThrow(id)</span>
+<span class="fc" id="L90">        val oldStatus = centre.licenceStatus</span>
+
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        req.name?.let { centre.name = it }</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        req.address?.let { centre.address = it }</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        req.postalCode?.let { centre.postalCode = it }</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        req.operatingHours?.let { centre.operatingHours = it }</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        req.capacity?.let { centre.capacity = it }</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        req.licenceStatus?.let { centre.licenceStatus = it }</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        req.licenceIssueDate?.let { centre.licenceIssueDate = it }</span>
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        req.licenceExpiryDate?.let { centre.licenceExpiryDate = it }</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        req.renewalDueDate?.let { centre.renewalDueDate = it }</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        req.applicationStage?.let { centre.applicationStage = it }</span>
+<span class="fc" id="L102">        centre.updatedAt = OffsetDateTime.now()</span>
+<span class="fc" id="L103">        centre.updatedBy = actor</span>
+
+<span class="pc bpc" id="L105" title="2 of 4 branches missed.">        if (req.licenceStatus != null &amp;&amp; req.licenceStatus != oldStatus) {</span>
+<span class="fc" id="L106">            recordEvent(centre, &quot;STATUS_CHANGED&quot;, &quot;Licence status changed from $oldStatus to ${req.licenceStatus}&quot;, actor)</span>
+        } else {
+<span class="nc" id="L108">            recordEvent(centre, &quot;PROFILE_UPDATED&quot;, &quot;Centre profile updated&quot;, actor)</span>
+        }
+
+<span class="fc" id="L111">        return centreRepository.save(centre).toProfileDto()</span>
+    }
+
+    fun addKah(centreId: Long, req: CreateKahRequest, actor: String): KahDetailDto {
+<span class="nc" id="L115">        val centre = findCentreOrThrow(centreId)</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        kahDetailRepository.findByCentreIdAndIsCurrentTrue(centreId)?.let { existing -&gt;</span>
+<span class="nc" id="L117">            existing.isCurrent = false</span>
+<span class="nc" id="L118">            existing.appointmentEndDate = req.appointmentStartDate.minusDays(1)</span>
+<span class="nc" id="L119">            kahDetailRepository.save(existing)</span>
+        }
+<span class="nc" id="L121">        val kah = kahDetailRepository.save(</span>
+<span class="nc" id="L122">            KahDetail(</span>
+<span class="nc" id="L123">                centre = centre,</span>
+<span class="nc" id="L124">                principalName = req.principalName,</span>
+<span class="nc" id="L125">                nric = req.nric,</span>
+<span class="nc" id="L126">                email = req.email,</span>
+<span class="nc" id="L127">                phone = req.phone,</span>
+<span class="nc" id="L128">                licenceConditions = req.licenceConditions,</span>
+<span class="nc" id="L129">                appointmentStartDate = req.appointmentStartDate</span>
+            )
+        )
+<span class="nc" id="L132">        recordEvent(centre, &quot;KAH_APPOINTED&quot;, &quot;New KAH appointed: ${req.principalName}&quot;, actor)</span>
+<span class="nc" id="L133">        centre.updatedAt = OffsetDateTime.now()</span>
+<span class="nc" id="L134">        centre.updatedBy = actor</span>
+<span class="nc" id="L135">        centreRepository.save(centre)</span>
+<span class="nc" id="L136">        return kah.toDto()</span>
+    }
+
+    fun updateKah(centreId: Long, kahId: Long, req: UpdateKahRequest, actor: String): KahDetailDto {
+<span class="nc" id="L140">        val kah = kahDetailRepository.findById(kahId).orElseThrow {</span>
+<span class="nc" id="L141">            ResponseStatusException(HttpStatus.NOT_FOUND, &quot;KAH record not found&quot;)</span>
+        }
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        if (kah.centre.id != centreId) throw ResponseStatusException(HttpStatus.BAD_REQUEST, &quot;KAH does not belong to this centre&quot;)</span>
+
+<span class="nc bnc" id="L145" title="All 2 branches missed.">        req.email?.let { kah.email = it }</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">        req.phone?.let { kah.phone = it }</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        req.licenceConditions?.let { kah.licenceConditions = it }</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        req.pendingApproval?.let { kah.pendingApproval = it }</span>
+
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        if (req.pendingApproval == true) {</span>
+<span class="nc" id="L151">            recordEvent(findCentreOrThrow(centreId), &quot;KAH_CHANGE_PENDING&quot;, &quot;KAH change flagged pending officer approval&quot;, actor)</span>
+        }
+
+<span class="nc" id="L154">        return kahDetailRepository.save(kah).toDto()</span>
+    }
+
+    @Transactional(readOnly = true)
+    fun getKahHistory(centreId: Long): List&lt;KahDetailDto&gt; {
+<span class="nc" id="L159">        findCentreOrThrow(centreId)</span>
+<span class="nc" id="L160">        return kahDetailRepository.findByCentreIdOrderByCreatedAtDesc(centreId).map { it.toDto() }</span>
+    }
+
+    @Transactional(readOnly = true)
+    fun getWaiverHistory(centreId: Long): List&lt;WaiverHistoryDto&gt; {
+<span class="fc" id="L165">        findCentreOrThrow(centreId)</span>
+<span class="fc" id="L166">        return waiverHistoryRepository.findByCentreIdOrderByApprovalDateDesc(centreId).map { it.toDto() }</span>
+    }
+
+    private fun findCentreOrThrow(id: Long): Centre =
+<span class="fc" id="L170">        centreRepository.findById(id).orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Centre not found&quot;) }</span>
+
+    private fun recordEvent(centre: Centre, eventType: String, description: String, actor: String) {
+<span class="fc" id="L173">        lifecycleEventRepository.save(</span>
+<span class="fc" id="L174">            CentreLifecycleEvent(centre = centre, eventType = eventType, description = description, recordedBy = actor)</span>
+        )
+<span class="fc" id="L176">    }</span>
+
+    private fun buildSort(sortBy: String, sortDir: String): Sort {
+<span class="pc bpc" id="L179" title="1 of 2 branches missed.">        val direction = if (sortDir.equals(&quot;asc&quot;, ignoreCase = true)) Sort.Direction.ASC else Sort.Direction.DESC</span>
+<span class="fc" id="L180">        val field = when (sortBy) {</span>
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">            &quot;licenceExpiryDate&quot; -&gt; &quot;licenceExpiryDate&quot;</span>
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">            &quot;name&quot; -&gt; &quot;name&quot;</span>
+<span class="fc" id="L183">            else -&gt; &quot;updatedAt&quot;</span>
+        }
+<span class="fc" id="L185">        return Sort.by(direction, field)</span>
+    }
+
+<span class="fc" id="L188">    private fun Centre.toSummaryDto() = CentreSummaryDto(</span>
+<span class="fc" id="L189">        id, centreId, licenceNumber, name, centreType, postalCode,</span>
+<span class="fc" id="L190">        licenceStatus, licenceExpiryDate, renewalDueDate, updatedAt</span>
+<span class="fc" id="L191">    )</span>
+
+    private fun Centre.toProfileDto(): CentreProfileDto {
+<span class="fc" id="L194">        val currentKah = kahDetailRepository.findByCentreIdAndIsCurrentTrue(id)</span>
+<span class="pc" id="L195">        val contacts = this.contacts.map { it.toDto() }</span>
+<span class="pc" id="L196">        val events = lifecycleEventRepository.findByCentreIdOrderByOccurredAtDesc(id).map { it.toDto() }</span>
+<span class="fc" id="L197">        return CentreProfileDto(</span>
+<span class="fc" id="L198">            id, centreId, licenceNumber, name, centreType, address, postalCode,</span>
+<span class="fc" id="L199">            operatingHours, capacity, licenceStatus, licenceIssueDate, licenceExpiryDate,</span>
+<span class="fc" id="L200">            renewalDueDate, applicationStage, updatedAt, updatedBy,</span>
+<span class="pc bpc" id="L201" title="1 of 2 branches missed.">            currentKah?.toDto(), contacts, events</span>
+        )
+    }
+
+<span class="nc" id="L205">    private fun KahDetail.toDto() = KahDetailDto(</span>
+<span class="nc" id="L206">        id, principalName, nric, email, phone, licenceConditions,</span>
+<span class="nc" id="L207">        appointmentStartDate, appointmentEndDate, isCurrent, pendingApproval</span>
+<span class="nc" id="L208">    )</span>
+
+<span class="nc" id="L210">    private fun CentreContact.toDto() = CentreContactDto(id, contactType, contactName, role, email, phone)</span>
+
+<span class="nc" id="L212">    private fun CentreLifecycleEvent.toDto() = LifecycleEventDto(id, eventType, description, occurredAt, recordedBy)</span>
+
+<span class="fc" id="L214">    private fun WaiverHistory.toDto() = WaiverHistoryDto(</span>
+<span class="fc" id="L215">        id, waiverType, waiverTitle, waiverDescription, waiverStatus,</span>
+<span class="fc" id="L216">        approvalDate, expiryDate, approvedBy, officerRemarks,</span>
+<span class="fc" id="L217">        supportingDocumentName, supportingDocumentUrl</span>
+<span class="fc" id="L218">    )</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

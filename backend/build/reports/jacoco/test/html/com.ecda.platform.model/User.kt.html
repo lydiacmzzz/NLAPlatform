@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centre-profile-information</a> &gt; <a href="index.source.html" class="el_package">com.ecda.platform.model</a> &gt; <span class="el_source">User.kt</span></div><h1>User.kt</h1><pre class="source lang-java linenums">package com.ecda.platform.model
+
+import jakarta.persistence.*
+import java.time.OffsetDateTime
+
+<span class="nc" id="L6">enum class UserRole { ECDA_OFFICER, HQ_ADMIN, CENTRE_LEADER }</span>
+
+<span class="nc" id="L8">@Entity</span>
+@Table(name = &quot;users&quot;)
+<span class="nc" id="L10">data class User(</span>
+<span class="nc" id="L11">    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)</span>
+<span class="nc" id="L12">    val id: Long = 0,</span>
+
+<span class="nc" id="L14">    @Column(nullable = false, unique = true)</span>
+<span class="nc" id="L15">    val username: String = &quot;&quot;,</span>
+
+<span class="nc" id="L17">    @Column(nullable = false, unique = true)</span>
+<span class="nc" id="L18">    val email: String = &quot;&quot;,</span>
+
+<span class="nc" id="L20">    @Column(name = &quot;password_hash&quot;, nullable = false)</span>
+<span class="nc" id="L21">    val passwordHash: String = &quot;&quot;,</span>
+
+<span class="nc" id="L23">    @Enumerated(EnumType.STRING)</span>
+    @Column(nullable = false)
+<span class="nc" id="L25">    val role: UserRole = UserRole.ECDA_OFFICER,</span>
+
+<span class="nc" id="L27">    @Column(name = &quot;full_name&quot;)</span>
+<span class="nc" id="L28">    val fullName: String? = null,</span>
+
+<span class="nc" id="L30">    @Column(name = &quot;is_active&quot;, nullable = false)</span>
+<span class="nc" id="L31">    val isActive: Boolean = true,</span>
+
+<span class="nc" id="L33">    @Column(name = &quot;created_at&quot;, nullable = false, updatable = false)</span>
+<span class="nc" id="L34">    val createdAt: OffsetDateTime = OffsetDateTime.now()</span>
+<span class="nc" id="L35">)</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

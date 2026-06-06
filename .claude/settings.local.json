@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(docker-compose *)",
+      "PowerShell(docker compose up *)",
+      "PowerShell(Get-Command *)",
+      "PowerShell(winget install *)",
+      "PowerShell(Get-Process *)",
+      "PowerShell(java *)",
+      "PowerShell(Get-ChildItem \"C:\\\\Program Files\" | Where-Object { $_.Name -match \"java|jdk|jre|temurin|adoptium|corretto|zulu\" -and $_ -is [System.IO.DirectoryInfo] } -ErrorAction SilentlyContinue | Select-Object FullName)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Start-Process powershell -ArgumentList '-NoExit', '-Command', 'cd \"c:\\\\Users\\\\SONG\\\\.claude\\\\projects\\\\intelligent-task-manager\\\\backend\"; ./gradlew bootRun' -WindowStyle Normal)",
+      "PowerShell(Start-Process powershell -ArgumentList '-NoExit', '-Command', 'cd \"c:\\\\Users\\\\SONG\\\\.claude\\\\projects\\\\intelligent-task-manager\\\\frontend\"; npm run dev' -WindowStyle Normal)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri http://localhost:8080/api/auth/login -Method POST -ContentType 'application/json' -Body '{\"username\":\"admin\",\"password\":\"password\"}' -UseBasicParsing; $r.StatusCode; $r.Content } catch { $_.Exception.Response.StatusCode; $_.Exception.Message })"
+    ]
+  },
+  "enabledPlugins": {
+    "code-review@claude-plugins-official": true
+  }
+}

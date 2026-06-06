@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CentreController.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centre-profile-information</a> &gt; <a href="index.source.html" class="el_package">com.ecda.platform.controller</a> &gt; <span class="el_source">CentreController.kt</span></div><h1>CentreController.kt</h1><pre class="source lang-java linenums">package com.ecda.platform.controller
+
+import com.ecda.platform.dto.*
+import com.ecda.platform.service.CentreService
+import jakarta.validation.Valid
+import org.springframework.http.HttpStatus
+import org.springframework.security.core.Authentication
+import org.springframework.web.bind.annotation.*
+
+<span class="fc" id="L10">@RestController</span>
+@RequestMapping(&quot;/api/centres&quot;)
+<span class="fc" id="L12">class CentreController(private val centreService: CentreService) {</span>
+
+    @GetMapping
+    fun searchCentres(
+        @RequestParam query: String?,
+        @RequestParam centreType: String?,
+        @RequestParam licenceStatus: String?,
+        @RequestParam renewalDueBefore: String?,
+        @RequestParam(defaultValue = &quot;updatedAt&quot;) sortBy: String,
+        @RequestParam(defaultValue = &quot;desc&quot;) sortDir: String,
+        @RequestParam(defaultValue = &quot;0&quot;) page: Int,
+        @RequestParam(defaultValue = &quot;20&quot;) size: Int
+    ): PagedResponse&lt;CentreSummaryDto&gt; {
+<span class="nc" id="L25">        val req = CentreSearchRequest(</span>
+<span class="nc" id="L26">            query = query,</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">            centreType = centreType?.let { com.ecda.platform.model.CentreType.valueOf(it) },</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">            licenceStatus = licenceStatus?.let { com.ecda.platform.model.LicenceStatus.valueOf(it) },</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">            renewalDueBefore = renewalDueBefore?.let { java.time.LocalDate.parse(it) },</span>
+<span class="nc" id="L30">            sortBy = sortBy,</span>
+<span class="nc" id="L31">            sortDir = sortDir,</span>
+<span class="nc" id="L32">            page = page,</span>
+<span class="nc" id="L33">            size = size</span>
+        )
+<span class="nc" id="L35">        return centreService.searchCentres(req)</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+<span class="nc" id="L39">    fun getCentre(@PathVariable id: Long): CentreProfileDto = centreService.getCentre(id)</span>
+
+    @GetMapping(&quot;/by-centre-id/{centreId}&quot;)
+    fun getCentreByCentreId(@PathVariable centreId: String): CentreProfileDto =
+<span class="nc" id="L43">        centreService.getCentreByCentreId(centreId)</span>
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    fun createCentre(@Valid @RequestBody req: CreateCentreRequest, auth: Authentication): CentreProfileDto =
+<span class="nc" id="L48">        centreService.createCentre(req, auth.name)</span>
+
+    @PatchMapping(&quot;/{id}&quot;)
+    fun updateCentre(
+        @PathVariable id: Long,
+        @RequestBody req: UpdateCentreRequest,
+        auth: Authentication
+<span class="nc" id="L55">    ): CentreProfileDto = centreService.updateCentre(id, req, auth.name)</span>
+
+    @GetMapping(&quot;/{centreId}/kah&quot;)
+    fun getKahHistory(@PathVariable centreId: Long): List&lt;KahDetailDto&gt; =
+<span class="nc" id="L59">        centreService.getKahHistory(centreId)</span>
+
+    @PostMapping(&quot;/{centreId}/kah&quot;)
+    @ResponseStatus(HttpStatus.CREATED)
+    fun addKah(
+        @PathVariable centreId: Long,
+        @Valid @RequestBody req: CreateKahRequest,
+        auth: Authentication
+<span class="nc" id="L67">    ): KahDetailDto = centreService.addKah(centreId, req, auth.name)</span>
+
+    @PatchMapping(&quot;/{centreId}/kah/{kahId}&quot;)
+    fun updateKah(
+        @PathVariable centreId: Long,
+        @PathVariable kahId: Long,
+        @RequestBody req: UpdateKahRequest,
+        auth: Authentication
+<span class="nc" id="L75">    ): KahDetailDto = centreService.updateKah(centreId, kahId, req, auth.name)</span>
+
+    @GetMapping(&quot;/{centreId}/waivers&quot;)
+    fun getWaiverHistory(@PathVariable centreId: Long): List&lt;WaiverHistoryDto&gt; =
+<span class="fc" id="L79">        centreService.getWaiverHistory(centreId)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

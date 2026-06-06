@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CentreDto.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centre-profile-information</a> &gt; <a href="index.source.html" class="el_package">com.ecda.platform.dto</a> &gt; <span class="el_source">CentreDto.kt</span></div><h1>CentreDto.kt</h1><pre class="source lang-java linenums">package com.ecda.platform.dto
+
+import com.ecda.platform.model.*
+import jakarta.validation.constraints.*
+import java.time.LocalDate
+import java.time.OffsetDateTime
+
+<span class="fc" id="L8">data class CentreProfileDto(</span>
+<span class="pc" id="L9">    val id: Long,</span>
+<span class="fc" id="L10">    val centreId: String,</span>
+<span class="pc" id="L11">    val licenceNumber: String,</span>
+<span class="pc" id="L12">    val name: String,</span>
+<span class="pc" id="L13">    val centreType: CentreType,</span>
+<span class="pc" id="L14">    val address: String,</span>
+<span class="pc" id="L15">    val postalCode: String,</span>
+<span class="pc" id="L16">    val operatingHours: String?,</span>
+<span class="pc" id="L17">    val capacity: Int,</span>
+<span class="pc" id="L18">    val licenceStatus: LicenceStatus,</span>
+<span class="pc" id="L19">    val licenceIssueDate: LocalDate?,</span>
+<span class="pc" id="L20">    val licenceExpiryDate: LocalDate?,</span>
+<span class="pc" id="L21">    val renewalDueDate: LocalDate?,</span>
+<span class="pc" id="L22">    val applicationStage: String?,</span>
+<span class="pc" id="L23">    val updatedAt: OffsetDateTime,</span>
+<span class="pc" id="L24">    val updatedBy: String?,</span>
+<span class="pc" id="L25">    val currentKah: KahDetailDto?,</span>
+<span class="pc" id="L26">    val contacts: List&lt;CentreContactDto&gt;,</span>
+<span class="pc" id="L27">    val lifecycleEvents: List&lt;LifecycleEventDto&gt;</span>
+)
+
+<span class="fc" id="L30">data class CentreSummaryDto(</span>
+<span class="pc" id="L31">    val id: Long,</span>
+<span class="fc" id="L32">    val centreId: String,</span>
+<span class="pc" id="L33">    val licenceNumber: String,</span>
+<span class="pc" id="L34">    val name: String,</span>
+<span class="pc" id="L35">    val centreType: CentreType,</span>
+<span class="pc" id="L36">    val postalCode: String,</span>
+<span class="pc" id="L37">    val licenceStatus: LicenceStatus,</span>
+<span class="pc" id="L38">    val licenceExpiryDate: LocalDate?,</span>
+<span class="pc" id="L39">    val renewalDueDate: LocalDate?,</span>
+<span class="pc" id="L40">    val updatedAt: OffsetDateTime</span>
+)
+
+<span class="pc" id="L43">data class CreateCentreRequest(</span>
+<span class="fc" id="L44">    @field:NotBlank val centreId: String,</span>
+<span class="fc" id="L45">    @field:NotBlank val licenceNumber: String,</span>
+<span class="fc" id="L46">    @field:NotBlank val name: String,</span>
+<span class="fc" id="L47">    @field:NotNull val centreType: CentreType,</span>
+<span class="fc" id="L48">    @field:NotBlank val address: String,</span>
+<span class="fc" id="L49">    @field:NotBlank @field:Size(min = 6, max = 6) val postalCode: String,</span>
+<span class="fc" id="L50">    val operatingHours: String?,</span>
+<span class="fc" id="L51">    @field:Positive val capacity: Int,</span>
+<span class="pc" id="L52">    val licenceStatus: LicenceStatus = LicenceStatus.PENDING_RENEWAL,</span>
+<span class="fc" id="L53">    val licenceIssueDate: LocalDate?,</span>
+<span class="fc" id="L54">    val licenceExpiryDate: LocalDate?,</span>
+<span class="fc" id="L55">    val renewalDueDate: LocalDate?</span>
+<span class="nc" id="L56">)</span>
+
+<span class="fc" id="L58">data class UpdateCentreRequest(</span>
+<span class="fc" id="L59">    val name: String?,</span>
+<span class="fc" id="L60">    val address: String?,</span>
+<span class="fc" id="L61">    val postalCode: String?,</span>
+<span class="fc" id="L62">    val operatingHours: String?,</span>
+<span class="fc" id="L63">    val capacity: Int?,</span>
+<span class="fc" id="L64">    val licenceStatus: LicenceStatus?,</span>
+<span class="fc" id="L65">    val licenceIssueDate: LocalDate?,</span>
+<span class="fc" id="L66">    val licenceExpiryDate: LocalDate?,</span>
+<span class="fc" id="L67">    val renewalDueDate: LocalDate?,</span>
+<span class="fc" id="L68">    val applicationStage: String?</span>
+)
+
+<span class="nc" id="L71">data class KahDetailDto(</span>
+<span class="nc" id="L72">    val id: Long,</span>
+<span class="nc" id="L73">    val principalName: String,</span>
+<span class="nc" id="L74">    val nric: String,</span>
+<span class="nc" id="L75">    val email: String?,</span>
+<span class="nc" id="L76">    val phone: String?,</span>
+<span class="nc" id="L77">    val licenceConditions: String?,</span>
+<span class="nc" id="L78">    val appointmentStartDate: LocalDate,</span>
+<span class="nc" id="L79">    val appointmentEndDate: LocalDate?,</span>
+<span class="nc" id="L80">    val isCurrent: Boolean,</span>
+<span class="nc" id="L81">    val pendingApproval: Boolean</span>
+)
+
+<span class="nc" id="L84">data class CreateKahRequest(</span>
+<span class="nc" id="L85">    @field:NotBlank val principalName: String,</span>
+<span class="nc" id="L86">    @field:NotBlank val nric: String,</span>
+<span class="nc" id="L87">    val email: String?,</span>
+<span class="nc" id="L88">    val phone: String?,</span>
+<span class="nc" id="L89">    val licenceConditions: String?,</span>
+<span class="nc" id="L90">    @field:NotNull val appointmentStartDate: LocalDate</span>
+)
+
+<span class="nc" id="L93">data class UpdateKahRequest(</span>
+<span class="nc" id="L94">    val email: String?,</span>
+<span class="nc" id="L95">    val phone: String?,</span>
+<span class="nc" id="L96">    val licenceConditions: String?,</span>
+<span class="nc" id="L97">    val pendingApproval: Boolean?</span>
+)
+
+<span class="nc" id="L100">data class CentreContactDto(</span>
+<span class="nc" id="L101">    val id: Long,</span>
+<span class="nc" id="L102">    val contactType: ContactType,</span>
+<span class="nc" id="L103">    val contactName: String,</span>
+<span class="nc" id="L104">    val role: String?,</span>
+<span class="nc" id="L105">    val email: String?,</span>
+<span class="nc" id="L106">    val phone: String?</span>
+)
+
+<span class="nc" id="L109">data class UpsertContactRequest(</span>
+<span class="nc" id="L110">    @field:NotNull val contactType: ContactType,</span>
+<span class="nc" id="L111">    @field:NotBlank val contactName: String,</span>
+<span class="nc" id="L112">    val role: String?,</span>
+<span class="nc" id="L113">    val email: String?,</span>
+<span class="nc" id="L114">    val phone: String?</span>
+)
+
+<span class="nc" id="L117">data class LifecycleEventDto(</span>
+<span class="nc" id="L118">    val id: Long,</span>
+<span class="nc" id="L119">    val eventType: String,</span>
+<span class="nc" id="L120">    val description: String,</span>
+<span class="nc" id="L121">    val occurredAt: OffsetDateTime,</span>
+<span class="nc" id="L122">    val recordedBy: String</span>
+)
+
+<span class="fc" id="L125">data class CentreSearchRequest(</span>
+<span class="pc" id="L126">    val query: String? = null,</span>
+<span class="pc" id="L127">    val centreType: CentreType? = null,</span>
+<span class="pc" id="L128">    val licenceStatus: LicenceStatus? = null,</span>
+<span class="pc" id="L129">    val renewalDueBefore: LocalDate? = null,</span>
+<span class="fc" id="L130">    val sortBy: String = &quot;updatedAt&quot;,</span>
+<span class="fc" id="L131">    val sortDir: String = &quot;desc&quot;,</span>
+<span class="fc" id="L132">    val page: Int = 0,</span>
+<span class="fc" id="L133">    val size: Int = 20</span>
+<span class="fc" id="L134">)</span>
+
+<span class="fc" id="L136">data class PagedResponse&lt;T&gt;(</span>
+<span class="fc" id="L137">    val content: List&lt;T&gt;,</span>
+<span class="fc" id="L138">    val totalElements: Long,</span>
+<span class="pc" id="L139">    val totalPages: Int,</span>
+<span class="pc" id="L140">    val page: Int,</span>
+<span class="pc" id="L141">    val size: Int</span>
+)
+
+<span class="fc" id="L144">data class WaiverHistoryDto(</span>
+<span class="fc" id="L145">    val id: Long,</span>
+<span class="fc" id="L146">    val waiverType: String,</span>
+<span class="fc" id="L147">    val waiverTitle: String,</span>
+<span class="fc" id="L148">    val waiverDescription: String?,</span>
+<span class="fc" id="L149">    val waiverStatus: WaiverStatus,</span>
+<span class="fc" id="L150">    val approvalDate: LocalDate?,</span>
+<span class="fc" id="L151">    val expiryDate: LocalDate?,</span>
+<span class="fc" id="L152">    val approvedBy: String?,</span>
+<span class="fc" id="L153">    val officerRemarks: String?,</span>
+<span class="fc" id="L154">    val supportingDocumentName: String?,</span>
+<span class="fc" id="L155">    val supportingDocumentUrl: String?</span>
+)
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
