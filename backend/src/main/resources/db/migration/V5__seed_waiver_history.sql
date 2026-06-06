@@ -2,7 +2,7 @@
 
 INSERT INTO waiver_history (centre_id, waiver_type, waiver_title, waiver_description, waiver_status, approval_date, expiry_date, approved_by, officer_remarks, supporting_document_name, supporting_document_url)
 VALUES
-  -- CC-001: Sunshine Infant Care — approved outdoor play area waiver (active)
+  -- CC-001: HappySchool@Bishan — approved outdoor play area waiver (active)
   ((SELECT id FROM centres WHERE centre_id = 'CC-001'),
    'Physical Environment',
    'Outdoor Play Area Requirement Waiver',
@@ -14,7 +14,7 @@ VALUES
    'CC001_outdoor_waiver_approval.pdf',
    'https://docs.ecda.gov.sg/waivers/CC001_outdoor_waiver_approval.pdf'),
 
-  -- CC-001: Sunshine Infant Care — expired capacity waiver
+  -- CC-001: HappySchool@Bishan — expired capacity waiver
   ((SELECT id FROM centres WHERE centre_id = 'CC-001'),
    'Operating Capacity',
    'Temporary Capacity Exception Waiver',
@@ -26,7 +26,7 @@ VALUES
    NULL,
    NULL),
 
-  -- CC-002: Little Stars Student Care — approved staff waiver
+  -- CC-002: HappySchool@Tampines — approved staff waiver
   ((SELECT id FROM centres WHERE centre_id = 'CC-002'),
    'Staffing',
    'Temporary Relief Staff Deployment Waiver',
@@ -38,7 +38,7 @@ VALUES
    'CC002_relief_staff_waiver.pdf',
    'https://docs.ecda.gov.sg/waivers/CC002_relief_staff_waiver.pdf'),
 
-  -- CC-003: Bright Futures AO Centre — superseded renovation waiver
+  -- CC-003: RainbowKids@Jurong — superseded renovation waiver
   ((SELECT id FROM centres WHERE centre_id = 'CC-003'),
    'Physical Environment',
    'Post-Renovation Transition Waiver',
@@ -50,7 +50,7 @@ VALUES
    'CC003_renovation_waiver.pdf',
    'https://docs.ecda.gov.sg/waivers/CC003_renovation_waiver.pdf'),
 
-  -- CC-004: Rainbow Kids — rejected waiver
+  -- CC-004: RainbowKids@Woodlands — rejected waiver
   ((SELECT id FROM centres WHERE centre_id = 'CC-004'),
    'Staffing',
    'Reduced Staff-to-Child Ratio Waiver',
@@ -62,7 +62,7 @@ VALUES
    NULL,
    NULL),
 
-  -- CC-005: Happy Hearts Infant Care — approved waiver (pre-suspension)
+  -- CC-005: HappyHearts@Bedok — approved waiver (pre-suspension)
   ((SELECT id FROM centres WHERE centre_id = 'CC-005'),
    'Operating Capacity',
    'Extended Operating Hours Waiver',
@@ -74,7 +74,7 @@ VALUES
    'CC005_extended_hours_waiver.pdf',
    'https://docs.ecda.gov.sg/waivers/CC005_extended_hours_waiver.pdf'),
 
-  -- CC-006: Future Leaders — approved waiver
+  -- CC-006: HappyHearts@Yishun — approved waiver
   ((SELECT id FROM centres WHERE centre_id = 'CC-006'),
    'Physical Environment',
    'Shared Outdoor Space Usage Waiver',

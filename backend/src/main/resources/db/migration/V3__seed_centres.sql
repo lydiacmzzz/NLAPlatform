@@ -2,12 +2,12 @@
 
 INSERT INTO centres (centre_id, licence_number, name, centre_type, address, postal_code, operating_hours, capacity, licence_status, licence_issue_date, licence_expiry_date, renewal_due_date, application_stage, updated_by)
 VALUES
-  ('CC-001', 'LIC-2021-0001', 'Sunshine Infant Care @ Tampines',       'INFANT_CARE',       '10 Tampines Central 1, #01-01',         '529536', '7:00am - 7:00pm', 40,  'ACTIVE',          '2021-03-01', '2026-02-28', '2025-11-28', NULL,                  'admin'),
-  ('CC-002', 'LIC-2020-0002', 'Little Stars Student Care @ Bishan',    'STUDENT_CARE',      '51 Bishan Street 13, #02-05',           '579799', '7:00am - 9:00pm', 80,  'ACTIVE',          '2020-06-15', '2025-06-14', '2025-03-14', NULL,                  'admin'),
-  ('CC-003', 'LIC-2019-0003', 'Bright Futures AO Centre @ Jurong',     'ANCHOR_OPERATOR',   '30 Jurong East Street 31, #01-10',      '609494', '7:00am - 7:00pm', 120, 'PENDING_RENEWAL', '2019-09-01', '2024-08-31', '2024-05-31', 'Renewal In Progress', 'admin'),
-  ('CC-004', 'LIC-2022-0004', 'Rainbow Kids PO Centre @ Woodlands',    'PARTNER_OPERATOR',  '900 South Woodlands Drive, #03-02',     '730900', '6:30am - 7:30pm', 60,  'ACTIVE',          '2022-01-10', '2027-01-09', '2026-10-09', NULL,                  'admin'),
-  ('CC-005', 'LIC-2018-0005', 'Happy Hearts Infant Care @ Bedok',      'INFANT_CARE',       '418 Bedok North Avenue 2, #01-15',      '460418', '7:00am - 7:00pm', 30,  'SUSPENDED',       '2018-04-20', '2023-04-19', NULL,         'Suspension Review',   'admin'),
-  ('CC-006', 'LIC-2023-0006', 'Future Leaders Student Care @ Yishun',  'STUDENT_CARE',      '101 Yishun Avenue 5, #02-08',           '760101', '7:00am - 9:00pm', 100, 'ACTIVE',          '2023-07-01', '2028-06-30', '2028-03-30', NULL,                  'admin');
+  ('CC-001', 'LIC-2021-0001', 'HappySchool@Bishan',                    'INFANT_CARE',       '10 Tampines Central 1, #01-01',         '529536', '7:00am - 7:00pm', 40,  'ACTIVE',          '2021-03-01', '2026-02-28', '2025-11-28', NULL,                  'admin'),
+  ('CC-002', 'LIC-2020-0002', 'HappySchool@Tampines',                  'STUDENT_CARE',      '51 Bishan Street 13, #02-05',           '579799', '7:00am - 9:00pm', 80,  'ACTIVE',          '2020-06-15', '2025-06-14', '2025-03-14', NULL,                  'admin'),
+  ('CC-003', 'LIC-2019-0003', 'RainbowKids@Jurong',                    'ANCHOR_OPERATOR',   '30 Jurong East Street 31, #01-10',      '609494', '7:00am - 7:00pm', 120, 'PENDING_RENEWAL', '2019-09-01', '2024-08-31', '2024-05-31', 'Renewal In Progress', 'admin'),
+  ('CC-004', 'LIC-2022-0004', 'RainbowKids@Woodlands',                 'PARTNER_OPERATOR',  '900 South Woodlands Drive, #03-02',     '730900', '6:30am - 7:30pm', 60,  'ACTIVE',          '2022-01-10', '2027-01-09', '2026-10-09', NULL,                  'admin'),
+  ('CC-005', 'LIC-2018-0005', 'HappyHearts@Bedok',                     'INFANT_CARE',       '418 Bedok North Avenue 2, #01-15',      '460418', '7:00am - 7:00pm', 30,  'SUSPENDED',       '2018-04-20', '2023-04-19', NULL,         'Suspension Review',   'admin'),
+  ('CC-006', 'LIC-2023-0006', 'HappyHearts@Yishun',                    'STUDENT_CARE',      '101 Yishun Avenue 5, #02-08',           '760101', '7:00am - 9:00pm', 100, 'ACTIVE',          '2023-07-01', '2028-06-30', '2028-03-30', NULL,                  'admin');
 
 
 -- KAH details (current KAH per centre)
@@ -44,11 +44,11 @@ VALUES
 
 INSERT INTO centre_lifecycle_events (centre_id, event_type, description, occurred_at, recorded_by)
 VALUES
-  ((SELECT id FROM centres WHERE centre_id = 'CC-001'), 'LICENCE_ISSUED',   'Initial licence issued for Sunshine Infant Care @ Tampines.',              '2021-03-01 09:00:00+08', 'admin'),
-  ((SELECT id FROM centres WHERE centre_id = 'CC-002'), 'LICENCE_ISSUED',   'Initial licence issued for Little Stars Student Care @ Bishan.',           '2020-06-15 09:00:00+08', 'admin'),
-  ((SELECT id FROM centres WHERE centre_id = 'CC-003'), 'LICENCE_ISSUED',   'Initial licence issued for Bright Futures AO Centre @ Jurong.',            '2019-09-01 09:00:00+08', 'admin'),
+  ((SELECT id FROM centres WHERE centre_id = 'CC-001'), 'LICENCE_ISSUED',   'Initial licence issued for HappySchool@Bishan.',                          '2021-03-01 09:00:00+08', 'admin'),
+  ((SELECT id FROM centres WHERE centre_id = 'CC-002'), 'LICENCE_ISSUED',   'Initial licence issued for HappySchool@Tampines.',                        '2020-06-15 09:00:00+08', 'admin'),
+  ((SELECT id FROM centres WHERE centre_id = 'CC-003'), 'LICENCE_ISSUED',   'Initial licence issued for RainbowKids@Jurong.',                          '2019-09-01 09:00:00+08', 'admin'),
   ((SELECT id FROM centres WHERE centre_id = 'CC-003'), 'RENEWAL_INITIATED','Licence renewal application submitted. Current licence expires 2024-08-31.','2024-04-10 10:30:00+08', 'officer1'),
-  ((SELECT id FROM centres WHERE centre_id = 'CC-004'), 'LICENCE_ISSUED',   'Initial licence issued for Rainbow Kids PO Centre @ Woodlands.',           '2022-01-10 09:00:00+08', 'admin'),
-  ((SELECT id FROM centres WHERE centre_id = 'CC-005'), 'LICENCE_ISSUED',   'Initial licence issued for Happy Hearts Infant Care @ Bedok.',             '2018-04-20 09:00:00+08', 'admin'),
+  ((SELECT id FROM centres WHERE centre_id = 'CC-004'), 'LICENCE_ISSUED',   'Initial licence issued for RainbowKids@Woodlands.',                       '2022-01-10 09:00:00+08', 'admin'),
+  ((SELECT id FROM centres WHERE centre_id = 'CC-005'), 'LICENCE_ISSUED',   'Initial licence issued for HappyHearts@Bedok.',                           '2018-04-20 09:00:00+08', 'admin'),
   ((SELECT id FROM centres WHERE centre_id = 'CC-005'), 'SUSPENSION',       'Licence suspended due to non-compliance with staff-to-child ratio.',       '2024-11-05 14:00:00+08', 'officer1'),
-  ((SELECT id FROM centres WHERE centre_id = 'CC-006'), 'LICENCE_ISSUED',   'Initial licence issued for Future Leaders Student Care @ Yishun.',         '2023-07-01 09:00:00+08', 'admin');
+  ((SELECT id FROM centres WHERE centre_id = 'CC-006'), 'LICENCE_ISSUED',   'Initial licence issued for HappyHearts@Yishun.',                          '2023-07-01 09:00:00+08', 'admin');
