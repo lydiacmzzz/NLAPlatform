@@ -63,6 +63,10 @@ data class Centre(
     @Column(name = "updated_by")
     var updatedBy: String? = null,
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hq_id", nullable = false)
+    var hq: Hq = Hq(),
+
     @OneToMany(mappedBy = "centre", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     val kahDetails: MutableList<KahDetail> = mutableListOf(),
 

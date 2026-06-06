@@ -17,49 +17,49 @@ import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
-<span class="fc" id="L20">@Configuration</span>
+<span class="nc" id="L20">@Configuration</span>
 @EnableWebSecurity
 @EnableMethodSecurity
-<span class="fc" id="L23">class SecurityConfig(private val jwtAuthFilter: JwtAuthFilter) {</span>
+<span class="nc" id="L23">class SecurityConfig(private val jwtAuthFilter: JwtAuthFilter) {</span>
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
-<span class="fc" id="L27">        val config = CorsConfiguration().apply {</span>
-<span class="fc" id="L28">            allowedOrigins = listOf(&quot;http://localhost:5173&quot;, &quot;http://localhost:5175&quot;)</span>
-<span class="fc" id="L29">            allowedMethods = listOf(&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;DELETE&quot;, &quot;OPTIONS&quot;)</span>
-<span class="fc" id="L30">            allowedHeaders = listOf(&quot;*&quot;)</span>
-<span class="fc" id="L31">            allowCredentials = true</span>
-<span class="fc" id="L32">        }</span>
-<span class="fc" id="L33">        return UrlBasedCorsConfigurationSource().apply {</span>
-<span class="fc" id="L34">            registerCorsConfiguration(&quot;/api/**&quot;, config)</span>
-<span class="fc" id="L35">        }</span>
+<span class="nc" id="L27">        val config = CorsConfiguration().apply {</span>
+<span class="nc" id="L28">            allowedOrigins = listOf(&quot;http://localhost:5173&quot;, &quot;http://localhost:5175&quot;)</span>
+<span class="nc" id="L29">            allowedMethods = listOf(&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;DELETE&quot;, &quot;OPTIONS&quot;)</span>
+<span class="nc" id="L30">            allowedHeaders = listOf(&quot;*&quot;)</span>
+<span class="nc" id="L31">            allowCredentials = true</span>
+<span class="nc" id="L32">        }</span>
+<span class="nc" id="L33">        return UrlBasedCorsConfigurationSource().apply {</span>
+<span class="nc" id="L34">            registerCorsConfiguration(&quot;/api/**&quot;, config)</span>
+<span class="nc" id="L35">        }</span>
     }
 
     @Bean
-<span class="fc" id="L39">    fun filterChain(http: HttpSecurity): SecurityFilterChain = http</span>
-<span class="fc" id="L40">        .cors { it.configurationSource(corsConfigurationSource()) }</span>
-<span class="fc" id="L41">        .csrf { it.disable() }</span>
-<span class="fc" id="L42">        .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }</span>
-<span class="fc" id="L43">        .authorizeHttpRequests {</span>
-<span class="fc" id="L44">            it.requestMatchers(&quot;/error&quot;).permitAll()</span>
-<span class="fc" id="L45">            it.requestMatchers(&quot;/api/auth/**&quot;).permitAll()</span>
-<span class="fc" id="L46">            it.requestMatchers(HttpMethod.OPTIONS, &quot;/**&quot;).permitAll()</span>
-<span class="fc" id="L47">            it.requestMatchers(HttpMethod.GET, &quot;/api/centres/*/waivers&quot;).hasRole(&quot;ECDA_OFFICER&quot;)</span>
-<span class="fc" id="L48">            it.requestMatchers(HttpMethod.GET, &quot;/api/centres/**&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;, &quot;CENTRE_LEADER&quot;)</span>
-<span class="fc" id="L49">            it.requestMatchers(HttpMethod.POST, &quot;/api/centres/**&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;)</span>
-<span class="fc" id="L50">            it.requestMatchers(HttpMethod.PUT, &quot;/api/centres/**&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;)</span>
-<span class="fc" id="L51">            it.requestMatchers(HttpMethod.PATCH, &quot;/api/centres/**&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;)</span>
-<span class="fc" id="L52">            it.anyRequest().authenticated()</span>
-<span class="fc" id="L53">        }</span>
-<span class="fc" id="L54">        .exceptionHandling {</span>
-<span class="fc" id="L55">            it.authenticationEntryPoint { _, response, _ -&gt;</span>
-<span class="fc" id="L56">                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, &quot;Unauthorized&quot;)</span>
-<span class="fc" id="L57">            }</span>
-<span class="fc" id="L58">        }</span>
-<span class="fc" id="L59">        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)</span>
-<span class="fc" id="L60">        .build()</span>
+<span class="nc" id="L39">    fun filterChain(http: HttpSecurity): SecurityFilterChain = http</span>
+<span class="nc" id="L40">        .cors { it.configurationSource(corsConfigurationSource()) }</span>
+<span class="nc" id="L41">        .csrf { it.disable() }</span>
+<span class="nc" id="L42">        .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }</span>
+<span class="nc" id="L43">        .authorizeHttpRequests {</span>
+<span class="nc" id="L44">            it.requestMatchers(&quot;/error&quot;).permitAll()</span>
+<span class="nc" id="L45">            it.requestMatchers(&quot;/api/auth/**&quot;).permitAll()</span>
+<span class="nc" id="L46">            it.requestMatchers(HttpMethod.OPTIONS, &quot;/**&quot;).permitAll()</span>
+<span class="nc" id="L47">            it.requestMatchers(HttpMethod.GET, &quot;/api/centres/*/waivers&quot;).hasRole(&quot;ECDA_OFFICER&quot;)</span>
+<span class="nc" id="L48">            it.requestMatchers(HttpMethod.GET, &quot;/api/centres/**&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;, &quot;CENTRE_LEADER&quot;)</span>
+<span class="nc" id="L49">            it.requestMatchers(HttpMethod.POST, &quot;/api/centres/**&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;)</span>
+<span class="nc" id="L50">            it.requestMatchers(HttpMethod.PUT, &quot;/api/centres/**&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;)</span>
+<span class="nc" id="L51">            it.requestMatchers(HttpMethod.PATCH, &quot;/api/centres/**&quot;).hasAnyRole(&quot;ECDA_OFFICER&quot;, &quot;HQ_ADMIN&quot;)</span>
+<span class="nc" id="L52">            it.anyRequest().authenticated()</span>
+<span class="nc" id="L53">        }</span>
+<span class="nc" id="L54">        .exceptionHandling {</span>
+<span class="nc" id="L55">            it.authenticationEntryPoint { _, response, _ -&gt;</span>
+<span class="nc" id="L56">                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, &quot;Unauthorized&quot;)</span>
+<span class="nc" id="L57">            }</span>
+<span class="nc" id="L58">        }</span>
+<span class="nc" id="L59">        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)</span>
+<span class="nc" id="L60">        .build()</span>
 
     @Bean
-<span class="fc" id="L63">    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()</span>
+<span class="nc" id="L63">    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -50,7 +50,7 @@ class CentreControllerTest {
     @Test
     @WithMockUser(roles = ["ECDA_OFFICER"])
     fun `GET centres returns paged results`() {
-        every { centreService.searchCentres(any()) } returns PagedResponse(
+        every { centreService.searchCentres(any(), any()) } returns PagedResponse(
             content = listOf(
                 CentreSummaryDto(1L, "CC-001", "LIC-001", "Happy Kids Centre",
                     CentreType.INFANT_CARE, "123456", LicenceStatus.ACTIVE,
@@ -69,7 +69,7 @@ class CentreControllerTest {
     @Test
     @WithMockUser(roles = ["ECDA_OFFICER"])
     fun `GET centre by id returns profile`() {
-        every { centreService.getCentre(1L) } returns sampleProfile()
+        every { centreService.getCentre(1L, any()) } returns sampleProfile()
 
         mockMvc.get("/api/centres/1").andExpect {
             status { isOk() }
@@ -141,7 +141,7 @@ class CentreControllerTest {
             renewalDueDate = null,
             applicationStage = null
         )
-        every { centreService.updateCentre(1L, updateReq, any()) } returns sampleProfile(1L)
+        every { centreService.updateCentre(1L, updateReq, any(), any()) } returns sampleProfile(1L)
 
         mockMvc.patch("/api/centres/1") {
             contentType = MediaType.APPLICATION_JSON
@@ -178,7 +178,7 @@ class CentreControllerTest {
     @Test
     @WithMockUser(roles = ["ECDA_OFFICER"])
     fun `GET centres with filters applies search params`() {
-        every { centreService.searchCentres(any()) } returns PagedResponse(
+        every { centreService.searchCentres(any(), any()) } returns PagedResponse(
             content = listOf(
                 CentreSummaryDto(1L, "CC-001", "LIC-001", "Happy Kids Centre",
                     CentreType.INFANT_CARE, "123456", LicenceStatus.ACTIVE,
@@ -197,7 +197,7 @@ class CentreControllerTest {
     @Test
     @WithMockUser(roles = ["ECDA_OFFICER"])
     fun `GET centre with invalid id returns 404`() {
-        every { centreService.getCentre(999L) } throws org.springframework.web.server.ResponseStatusException(
+        every { centreService.getCentre(999L, any()) } throws org.springframework.web.server.ResponseStatusException(
             org.springframework.http.HttpStatus.NOT_FOUND,
             "Centre not found"
         )
@@ -258,8 +258,44 @@ class CentreControllerTest {
 
     @Test
     @WithMockUser(roles = ["ECDA_OFFICER"])
+    fun `GET centre returns 403 when officer accesses out-of-scope centre`() {
+        every { centreService.getCentre(5L, any()) } throws org.springframework.web.server.ResponseStatusException(
+            org.springframework.http.HttpStatus.FORBIDDEN, "Access denied"
+        )
+
+        mockMvc.get("/api/centres/5").andExpect {
+            status { isForbidden() }
+        }
+    }
+
+    @Test
+    @WithMockUser(roles = ["HQ_ADMIN"])
+    fun `GET centre returns 403 when HQ_ADMIN accesses centre in different HQ`() {
+        every { centreService.getCentre(3L, any()) } throws org.springframework.web.server.ResponseStatusException(
+            org.springframework.http.HttpStatus.FORBIDDEN, "Access denied"
+        )
+
+        mockMvc.get("/api/centres/3").andExpect {
+            status { isForbidden() }
+        }
+    }
+
+    @Test
+    @WithMockUser(roles = ["CENTRE_LEADER"])
+    fun `GET centre returns 403 when CENTRE_LEADER accesses different centre`() {
+        every { centreService.getCentre(2L, any()) } throws org.springframework.web.server.ResponseStatusException(
+            org.springframework.http.HttpStatus.FORBIDDEN, "Access denied"
+        )
+
+        mockMvc.get("/api/centres/2").andExpect {
+            status { isForbidden() }
+        }
+    }
+
+    @Test
+    @WithMockUser(roles = ["ECDA_OFFICER"])
     fun `GET centres with pagination works correctly`() {
-        every { centreService.searchCentres(any()) } returns PagedResponse(
+        every { centreService.searchCentres(any(), any()) } returns PagedResponse(
             content = emptyList(),
             totalElements = 100,
             totalPages = 5,

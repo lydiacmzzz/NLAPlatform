@@ -1,4 +1,4 @@
-package com.ecda.platform.service
+﻿package com.ecda.platform.service
 
 import com.ecda.platform.model.*
 import com.ecda.platform.repository.CentreRepository
@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.springframework.data.jpa.domain.Specification
+import org.springframework.security.core.Authentication
 import org.springframework.web.server.ResponseStatusException
 import java.time.LocalDate
 import java.util.Optional
@@ -20,12 +22,18 @@ class WaiverHistoryServiceTest {
     private val kahDetailRepository: KahDetailRepository = mockk()
     private val lifecycleEventRepository: CentreLifecycleEventRepository = mockk()
     private val waiverHistoryRepository: WaiverHistoryRepository = mockk()
+    private val centreScopeService: CentreScopeService = mockk()
 
+    private val auth: Authentication = mockk()
     private lateinit var service: CentreService
 
     @BeforeEach
     fun setUp() {
-        service = CentreService(centreRepository, kahDetailRepository, lifecycleEventRepository, waiverHistoryRepository)
+        service = CentreService(centreRepository, kahDetailRepository, lifecycleEventRepository,
+            waiverHistoryRepository, centreScopeService)
+        every { centreScopeService.resolveScope(any()) } returns CentreScope.OfficerScope(listOf(1L))
+        every { centreScopeService.toSpecification(any()) } returns Specification.where(null)
+        justRun { centreScopeService.assertInScope(any(), any()) }
     }
 
     private fun sampleCentre(id: Long = 1L) = Centre(
@@ -63,7 +71,7 @@ class WaiverHistoryServiceTest {
         every { centreRepository.findById(1L) } returns Optional.of(centre)
         every { waiverHistoryRepository.findByCentreIdOrderByApprovalDateDesc(1L) } returns listOf(waiver)
 
-        val result = service.getWaiverHistory(1L)
+        val result = service.getWaiverHistory(1L, auth)
 
         assertEquals(1, result.size)
         assertEquals("Outdoor Play Area Waiver", result[0].waiverTitle)
@@ -80,7 +88,7 @@ class WaiverHistoryServiceTest {
         every { centreRepository.findById(1L) } returns Optional.of(centre)
         every { waiverHistoryRepository.findByCentreIdOrderByApprovalDateDesc(1L) } returns emptyList()
 
-        val result = service.getWaiverHistory(1L)
+        val result = service.getWaiverHistory(1L, auth)
 
         assertTrue(result.isEmpty())
     }
@@ -89,7 +97,7 @@ class WaiverHistoryServiceTest {
     fun `getWaiverHistory throws NOT_FOUND for unknown centre`() {
         every { centreRepository.findById(99L) } returns Optional.empty()
 
-        assertThrows<ResponseStatusException> { service.getWaiverHistory(99L) }
+        assertThrows<ResponseStatusException> { service.getWaiverHistory(99L, auth) }
         verify(exactly = 0) { waiverHistoryRepository.findByCentreIdOrderByApprovalDateDesc(any()) }
     }
 
@@ -101,7 +109,7 @@ class WaiverHistoryServiceTest {
         every { centreRepository.findById(1L) } returns Optional.of(centre)
         every { waiverHistoryRepository.findByCentreIdOrderByApprovalDateDesc(1L) } returns listOf(waiver)
 
-        val result = service.getWaiverHistory(1L)
+        val result = service.getWaiverHistory(1L, auth)
         val dto = result[0]
 
         assertEquals(1L, dto.id)
@@ -129,7 +137,7 @@ class WaiverHistoryServiceTest {
         every { centreRepository.findById(1L) } returns Optional.of(centre)
         every { waiverHistoryRepository.findByCentreIdOrderByApprovalDateDesc(1L) } returns listOf(waiver)
 
-        val result = service.getWaiverHistory(1L)
+        val result = service.getWaiverHistory(1L, auth)
 
         assertEquals(1, result.size)
         assertNull(result[0].approvalDate)
@@ -154,7 +162,7 @@ class WaiverHistoryServiceTest {
         every { centreRepository.findById(1L) } returns Optional.of(centre)
         every { waiverHistoryRepository.findByCentreIdOrderByApprovalDateDesc(1L) } returns waivers
 
-        val result = service.getWaiverHistory(1L)
+        val result = service.getWaiverHistory(1L, auth)
 
         assertEquals(3, result.size)
         val statuses = result.map { it.waiverStatus }

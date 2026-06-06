@@ -31,5 +31,11 @@ data class User(
     val isActive: Boolean = true,
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    val createdAt: OffsetDateTime = OffsetDateTime.now()
+    val createdAt: OffsetDateTime = OffsetDateTime.now(),
+
+    @Column(name = "hq_id")
+    val hqId: Long? = null,
+
+    @Column(name = "centre_id")
+    val centreId: Long? = null
 )

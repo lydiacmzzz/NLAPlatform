@@ -6,9 +6,9 @@ const WAIVER_ENDPOINT = `/api/centres/${CENTRE_ID}/waivers`;
 
 // Seeded test users — all share the same password (V1 + V2 migrations)
 const USERS = {
-  ECDA_OFFICER: { username: 'officer1', password: 'password' },
-  HQ_ADMIN:     { username: 'admin',    password: 'password' },
-  CENTRE_LEADER: { username: 'leader1', password: 'password' },
+  ECDA_OFFICER:  { username: 'officer1',         password: 'password' },
+  HQ_ADMIN:      { username: 'HQAAdmin',          password: 'password' },
+  CENTRE_LEADER: { username: 'HQACenterLeader1',  password: 'password' },
 } as const;
 
 // Waiver payload fields that must never appear in a 403 response

@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
+import org.springframework.data.jpa.domain.Specification
+import org.springframework.security.core.Authentication
 import org.springframework.web.server.ResponseStatusException
 import java.time.LocalDate
 import java.util.Optional
@@ -24,12 +26,18 @@ class CentreServiceTest {
     private val kahDetailRepository: KahDetailRepository = mockk()
     private val lifecycleEventRepository: CentreLifecycleEventRepository = mockk()
     private val waiverHistoryRepository: WaiverHistoryRepository = mockk()
+    private val centreScopeService: CentreScopeService = mockk()
 
+    private val auth: Authentication = mockk()
     private lateinit var service: CentreService
 
     @BeforeEach
     fun setUp() {
-        service = CentreService(centreRepository, kahDetailRepository, lifecycleEventRepository, waiverHistoryRepository)
+        service = CentreService(centreRepository, kahDetailRepository, lifecycleEventRepository,
+            waiverHistoryRepository, centreScopeService)
+        every { centreScopeService.resolveScope(any()) } returns CentreScope.OfficerScope(listOf(1L))
+        every { centreScopeService.toSpecification(any()) } returns Specification.where(null)
+        justRun { centreScopeService.assertInScope(any(), any()) }
     }
 
     private fun sampleCentre(id: Long = 1L) = Centre(
@@ -90,7 +98,7 @@ class CentreServiceTest {
     fun `getCentre throws NOT_FOUND for unknown id`() {
         every { centreRepository.findById(99L) } returns Optional.empty()
 
-        assertThrows<ResponseStatusException> { service.getCentre(99L) }
+        assertThrows<ResponseStatusException> { service.getCentre(99L, auth) }
     }
 
     @Test
@@ -108,7 +116,7 @@ class CentreServiceTest {
             licenceIssueDate = null, licenceExpiryDate = null, renewalDueDate = null,
             applicationStage = null
         )
-        service.updateCentre(1L, req, "officer1")
+        service.updateCentre(1L, req, "officer1", auth)
 
         val eventSlot = slot<CentreLifecycleEvent>()
         verify { lifecycleEventRepository.save(capture(eventSlot)) }
@@ -122,7 +130,7 @@ class CentreServiceTest {
         every { centreRepository.findAll(any<org.springframework.data.jpa.domain.Specification<Centre>>(), any<Pageable>()) } returns page
         every { kahDetailRepository.findByCentreIdAndIsCurrentTrue(1L) } returns null
 
-        val result = service.searchCentres(com.ecda.platform.dto.CentreSearchRequest())
+        val result = service.searchCentres(com.ecda.platform.dto.CentreSearchRequest(), auth)
         assertEquals(1, result.totalElements)
         assertEquals("CC-001", result.content[0].centreId)
     }

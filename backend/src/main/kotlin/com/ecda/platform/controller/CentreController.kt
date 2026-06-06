@@ -20,7 +20,8 @@ class CentreController(private val centreService: CentreService) {
         @RequestParam(defaultValue = "updatedAt") sortBy: String,
         @RequestParam(defaultValue = "desc") sortDir: String,
         @RequestParam(defaultValue = "0") page: Int,
-        @RequestParam(defaultValue = "20") size: Int
+        @RequestParam(defaultValue = "20") size: Int,
+        auth: Authentication
     ): PagedResponse<CentreSummaryDto> {
         val req = CentreSearchRequest(
             query = query,
@@ -32,15 +33,16 @@ class CentreController(private val centreService: CentreService) {
             page = page,
             size = size
         )
-        return centreService.searchCentres(req)
+        return centreService.searchCentres(req, auth)
     }
 
     @GetMapping("/{id}")
-    fun getCentre(@PathVariable id: Long): CentreProfileDto = centreService.getCentre(id)
+    fun getCentre(@PathVariable id: Long, auth: Authentication): CentreProfileDto =
+        centreService.getCentre(id, auth)
 
     @GetMapping("/by-centre-id/{centreId}")
-    fun getCentreByCentreId(@PathVariable centreId: String): CentreProfileDto =
-        centreService.getCentreByCentreId(centreId)
+    fun getCentreByCentreId(@PathVariable centreId: String, auth: Authentication): CentreProfileDto =
+        centreService.getCentreByCentreId(centreId, auth)
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -52,11 +54,11 @@ class CentreController(private val centreService: CentreService) {
         @PathVariable id: Long,
         @RequestBody req: UpdateCentreRequest,
         auth: Authentication
-    ): CentreProfileDto = centreService.updateCentre(id, req, auth.name)
+    ): CentreProfileDto = centreService.updateCentre(id, req, auth.name, auth)
 
     @GetMapping("/{centreId}/kah")
-    fun getKahHistory(@PathVariable centreId: Long): List<KahDetailDto> =
-        centreService.getKahHistory(centreId)
+    fun getKahHistory(@PathVariable centreId: Long, auth: Authentication): List<KahDetailDto> =
+        centreService.getKahHistory(centreId, auth)
 
     @PostMapping("/{centreId}/kah")
     @ResponseStatus(HttpStatus.CREATED)
@@ -64,7 +66,7 @@ class CentreController(private val centreService: CentreService) {
         @PathVariable centreId: Long,
         @Valid @RequestBody req: CreateKahRequest,
         auth: Authentication
-    ): KahDetailDto = centreService.addKah(centreId, req, auth.name)
+    ): KahDetailDto = centreService.addKah(centreId, req, auth.name, auth)
 
     @PatchMapping("/{centreId}/kah/{kahId}")
     fun updateKah(
@@ -72,9 +74,9 @@ class CentreController(private val centreService: CentreService) {
         @PathVariable kahId: Long,
         @RequestBody req: UpdateKahRequest,
         auth: Authentication
-    ): KahDetailDto = centreService.updateKah(centreId, kahId, req, auth.name)
+    ): KahDetailDto = centreService.updateKah(centreId, kahId, req, auth.name, auth)
 
     @GetMapping("/{centreId}/waivers")
-    fun getWaiverHistory(@PathVariable centreId: Long): List<WaiverHistoryDto> =
-        centreService.getWaiverHistory(centreId)
+    fun getWaiverHistory(@PathVariable centreId: Long, auth: Authentication): List<WaiverHistoryDto> =
+        centreService.getWaiverHistory(centreId, auth)
 }

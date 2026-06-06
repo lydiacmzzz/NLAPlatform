@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.domain.Specification
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.server.ResponseStatusException
@@ -18,14 +19,17 @@ class CentreService(
     private val centreRepository: CentreRepository,
     private val kahDetailRepository: KahDetailRepository,
     private val lifecycleEventRepository: CentreLifecycleEventRepository,
-    private val waiverHistoryRepository: WaiverHistoryRepository
+    private val waiverHistoryRepository: WaiverHistoryRepository,
+    private val centreScopeService: CentreScopeService
 ) {
 
     @Transactional(readOnly = true)
-    fun searchCentres(req: CentreSearchRequest): PagedResponse<CentreSummaryDto> {
+    fun searchCentres(req: CentreSearchRequest, auth: Authentication): PagedResponse<CentreSummaryDto> {
+        val scope = centreScopeService.resolveScope(auth)
+        val scopeSpec = centreScopeService.toSpecification(scope)
         val sort = buildSort(req.sortBy, req.sortDir)
         val pageable = PageRequest.of(req.page, req.size, sort)
-        val page = centreRepository.findAll(buildSpec(req), pageable)
+        val page = centreRepository.findAll(buildSpec(req).and(scopeSpec), pageable)
         return PagedResponse(
             content = page.content.map { it.toSummaryDto() },
             totalElements = page.totalElements,
@@ -52,11 +56,20 @@ class CentreService(
     }
 
     @Transactional(readOnly = true)
-    fun getCentre(id: Long): CentreProfileDto = findCentreOrThrow(id).toProfileDto()
+    fun getCentre(id: Long, auth: Authentication): CentreProfileDto {
+        val scope = centreScopeService.resolveScope(auth)
+        centreScopeService.assertInScope(id, scope)
+        return findCentreOrThrow(id).toProfileDto()
+    }
 
     @Transactional(readOnly = true)
-    fun getCentreByCentreId(centreId: String): CentreProfileDto =
-        (centreRepository.findByCentreId(centreId) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Centre not found")).toProfileDto()
+    fun getCentreByCentreId(centreId: String, auth: Authentication): CentreProfileDto {
+        val centre = centreRepository.findByCentreId(centreId)
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Centre not found")
+        val scope = centreScopeService.resolveScope(auth)
+        centreScopeService.assertInScope(centre.id, scope)
+        return centre.toProfileDto()
+    }
 
     fun createCentre(req: CreateCentreRequest, actor: String): CentreProfileDto {
         if (centreRepository.existsByCentreId(req.centreId))
@@ -85,7 +98,10 @@ class CentreService(
         return centre.toProfileDto()
     }
 
-    fun updateCentre(id: Long, req: UpdateCentreRequest, actor: String): CentreProfileDto {
+    fun updateCentre(id: Long, req: UpdateCentreRequest, actor: String, auth: Authentication): CentreProfileDto {
+        val scope = centreScopeService.resolveScope(auth)
+        centreScopeService.assertInScope(id, scope)
+
         val centre = findCentreOrThrow(id)
         val oldStatus = centre.licenceStatus
 
@@ -111,7 +127,10 @@ class CentreService(
         return centreRepository.save(centre).toProfileDto()
     }
 
-    fun addKah(centreId: Long, req: CreateKahRequest, actor: String): KahDetailDto {
+    fun addKah(centreId: Long, req: CreateKahRequest, actor: String, auth: Authentication): KahDetailDto {
+        val scope = centreScopeService.resolveScope(auth)
+        centreScopeService.assertInScope(centreId, scope)
+
         val centre = findCentreOrThrow(centreId)
         kahDetailRepository.findByCentreIdAndIsCurrentTrue(centreId)?.let { existing ->
             existing.isCurrent = false
@@ -136,7 +155,10 @@ class CentreService(
         return kah.toDto()
     }
 
-    fun updateKah(centreId: Long, kahId: Long, req: UpdateKahRequest, actor: String): KahDetailDto {
+    fun updateKah(centreId: Long, kahId: Long, req: UpdateKahRequest, actor: String, auth: Authentication): KahDetailDto {
+        val scope = centreScopeService.resolveScope(auth)
+        centreScopeService.assertInScope(centreId, scope)
+
         val kah = kahDetailRepository.findById(kahId).orElseThrow {
             ResponseStatusException(HttpStatus.NOT_FOUND, "KAH record not found")
         }
@@ -155,13 +177,19 @@ class CentreService(
     }
 
     @Transactional(readOnly = true)
-    fun getKahHistory(centreId: Long): List<KahDetailDto> {
+    fun getKahHistory(centreId: Long, auth: Authentication): List<KahDetailDto> {
+        val scope = centreScopeService.resolveScope(auth)
+        centreScopeService.assertInScope(centreId, scope)
         findCentreOrThrow(centreId)
         return kahDetailRepository.findByCentreIdOrderByCreatedAtDesc(centreId).map { it.toDto() }
     }
 
     @Transactional(readOnly = true)
-    fun getWaiverHistory(centreId: Long): List<WaiverHistoryDto> {
+    fun getWaiverHistory(centreId: Long, auth: Authentication): List<WaiverHistoryDto> {
+        val scope = centreScopeService.resolveScope(auth)
+        if (scope !is CentreScope.OfficerScope)
+            throw ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied")
+        centreScopeService.assertInScope(centreId, scope)
         findCentreOrThrow(centreId)
         return waiverHistoryRepository.findByCentreIdOrderByApprovalDateDesc(centreId).map { it.toDto() }
     }

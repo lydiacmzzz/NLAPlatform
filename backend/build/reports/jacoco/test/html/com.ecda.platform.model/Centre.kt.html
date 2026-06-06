@@ -11,36 +11,36 @@ import java.time.OffsetDateTime
 @Table(name = &quot;centres&quot;)
 <span class="fc" id="L12">data class Centre(</span>
 <span class="fc" id="L13">    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)</span>
-<span class="fc" id="L14">    val id: Long = 0,</span>
+<span class="pc" id="L14">    val id: Long = 0,</span>
 
 <span class="fc" id="L16">    @Column(name = &quot;centre_id&quot;, nullable = false, unique = true)</span>
-<span class="pc" id="L17">    val centreId: String = &quot;&quot;,</span>
+<span class="nc" id="L17">    val centreId: String = &quot;&quot;,</span>
 
 <span class="fc" id="L19">    @Column(name = &quot;licence_number&quot;, nullable = false, unique = true)</span>
-<span class="pc" id="L20">    val licenceNumber: String = &quot;&quot;,</span>
+<span class="nc" id="L20">    val licenceNumber: String = &quot;&quot;,</span>
 
 <span class="fc" id="L22">    @Column(nullable = false)</span>
-<span class="pc" id="L23">    var name: String = &quot;&quot;,</span>
+<span class="nc" id="L23">    var name: String = &quot;&quot;,</span>
 
 <span class="fc" id="L25">    @Enumerated(EnumType.STRING)</span>
     @Column(name = &quot;centre_type&quot;, nullable = false)
-<span class="pc" id="L27">    var centreType: CentreType = CentreType.INFANT_CARE,</span>
+<span class="nc" id="L27">    var centreType: CentreType = CentreType.INFANT_CARE,</span>
 
 <span class="fc" id="L29">    @Column(nullable = false)</span>
-<span class="pc" id="L30">    var address: String = &quot;&quot;,</span>
+<span class="nc" id="L30">    var address: String = &quot;&quot;,</span>
 
 <span class="fc" id="L32">    @Column(name = &quot;postal_code&quot;, nullable = false)</span>
-<span class="pc" id="L33">    var postalCode: String = &quot;&quot;,</span>
+<span class="nc" id="L33">    var postalCode: String = &quot;&quot;,</span>
 
 <span class="fc" id="L35">    @Column(name = &quot;operating_hours&quot;)</span>
 <span class="pc" id="L36">    var operatingHours: String? = null,</span>
 
 <span class="fc" id="L38">    @Column(nullable = false)</span>
-<span class="pc" id="L39">    var capacity: Int = 0,</span>
+<span class="nc" id="L39">    var capacity: Int = 0,</span>
 
 <span class="fc" id="L41">    @Enumerated(EnumType.STRING)</span>
     @Column(name = &quot;licence_status&quot;, nullable = false)
-<span class="pc" id="L43">    var licenceStatus: LicenceStatus = LicenceStatus.PENDING_RENEWAL,</span>
+<span class="nc" id="L43">    var licenceStatus: LicenceStatus = LicenceStatus.PENDING_RENEWAL,</span>
 
 <span class="fc" id="L45">    @Column(name = &quot;licence_issue_date&quot;)</span>
 <span class="pc" id="L46">    var licenceIssueDate: LocalDate? = null,</span>
@@ -55,21 +55,25 @@ import java.time.OffsetDateTime
 <span class="pc" id="L55">    var applicationStage: String? = null,</span>
 
 <span class="fc" id="L57">    @Column(name = &quot;created_at&quot;, nullable = false, updatable = false)</span>
-<span class="fc" id="L58">    val createdAt: OffsetDateTime = OffsetDateTime.now(),</span>
+<span class="pc" id="L58">    val createdAt: OffsetDateTime = OffsetDateTime.now(),</span>
 
 <span class="fc" id="L60">    @Column(name = &quot;updated_at&quot;, nullable = false)</span>
-<span class="fc" id="L61">    var updatedAt: OffsetDateTime = OffsetDateTime.now(),</span>
+<span class="pc" id="L61">    var updatedAt: OffsetDateTime = OffsetDateTime.now(),</span>
 
 <span class="fc" id="L63">    @Column(name = &quot;updated_by&quot;)</span>
-<span class="fc" id="L64">    var updatedBy: String? = null,</span>
+<span class="pc" id="L64">    var updatedBy: String? = null,</span>
 
-<span class="fc" id="L66">    @OneToMany(mappedBy = &quot;centre&quot;, cascade = [CascadeType.ALL], fetch = FetchType.LAZY)</span>
-<span class="fc" id="L67">    val kahDetails: MutableList&lt;KahDetail&gt; = mutableListOf(),</span>
+<span class="fc" id="L66">    @ManyToOne(fetch = FetchType.LAZY)</span>
+    @JoinColumn(name = &quot;hq_id&quot;, nullable = false)
+<span class="pc" id="L68">    var hq: Hq = Hq(),</span>
 
-<span class="fc" id="L69">    @OneToMany(mappedBy = &quot;centre&quot;, cascade = [CascadeType.ALL], fetch = FetchType.LAZY)</span>
-<span class="fc" id="L70">    val contacts: MutableList&lt;CentreContact&gt; = mutableListOf(),</span>
+<span class="fc" id="L70">    @OneToMany(mappedBy = &quot;centre&quot;, cascade = [CascadeType.ALL], fetch = FetchType.LAZY)</span>
+<span class="pc" id="L71">    val kahDetails: MutableList&lt;KahDetail&gt; = mutableListOf(),</span>
 
-<span class="fc" id="L72">    @OneToMany(mappedBy = &quot;centre&quot;, cascade = [CascadeType.ALL], fetch = FetchType.LAZY)</span>
-<span class="fc" id="L73">    val lifecycleEvents: MutableList&lt;CentreLifecycleEvent&gt; = mutableListOf()</span>
-<span class="fc" id="L74">)</span>
+<span class="fc" id="L73">    @OneToMany(mappedBy = &quot;centre&quot;, cascade = [CascadeType.ALL], fetch = FetchType.LAZY)</span>
+<span class="pc" id="L74">    val contacts: MutableList&lt;CentreContact&gt; = mutableListOf(),</span>
+
+<span class="fc" id="L76">    @OneToMany(mappedBy = &quot;centre&quot;, cascade = [CascadeType.ALL], fetch = FetchType.LAZY)</span>
+<span class="pc" id="L77">    val lifecycleEvents: MutableList&lt;CentreLifecycleEvent&gt; = mutableListOf()</span>
+<span class="fc" id="L78">)</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

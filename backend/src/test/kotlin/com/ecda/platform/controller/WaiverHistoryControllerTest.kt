@@ -46,7 +46,7 @@ class WaiverHistoryControllerTest {
     @Test
     @WithMockUser(roles = ["ECDA_OFFICER"])
     fun `GET waivers returns 200 for ECDA_OFFICER`() {
-        every { centreService.getWaiverHistory(1L) } returns listOf(sampleWaiver())
+        every { centreService.getWaiverHistory(1L, any()) } returns listOf(sampleWaiver())
 
         mockMvc.get("/api/centres/1/waivers").andExpect {
             status { isOk() }
@@ -85,7 +85,7 @@ class WaiverHistoryControllerTest {
     @Test
     @WithMockUser(roles = ["ECDA_OFFICER"])
     fun `GET waivers returns empty list when no waivers exist`() {
-        every { centreService.getWaiverHistory(1L) } returns emptyList()
+        every { centreService.getWaiverHistory(1L, any()) } returns emptyList()
 
         mockMvc.get("/api/centres/1/waivers").andExpect {
             status { isOk() }
@@ -97,7 +97,7 @@ class WaiverHistoryControllerTest {
     @Test
     @WithMockUser(roles = ["ECDA_OFFICER"])
     fun `GET waivers includes supporting document fields`() {
-        every { centreService.getWaiverHistory(1L) } returns listOf(sampleWaiver())
+        every { centreService.getWaiverHistory(1L, any()) } returns listOf(sampleWaiver())
 
         mockMvc.get("/api/centres/1/waivers").andExpect {
             status { isOk() }
@@ -108,8 +108,21 @@ class WaiverHistoryControllerTest {
 
     @Test
     @WithMockUser(roles = ["ECDA_OFFICER"])
+    fun `GET waivers returns 403 when officer accesses centre outside their HQ scope`() {
+        every { centreService.getWaiverHistory(5L, any()) } throws
+            org.springframework.web.server.ResponseStatusException(
+                org.springframework.http.HttpStatus.FORBIDDEN, "Access denied"
+            )
+
+        mockMvc.get("/api/centres/5/waivers").andExpect {
+            status { isForbidden() }
+        }
+    }
+
+    @Test
+    @WithMockUser(roles = ["ECDA_OFFICER"])
     fun `GET waivers returns 404 when centre does not exist`() {
-        every { centreService.getWaiverHistory(999L) } throws
+        every { centreService.getWaiverHistory(999L, any()) } throws
             org.springframework.web.server.ResponseStatusException(
                 org.springframework.http.HttpStatus.NOT_FOUND, "Centre not found"
             )
@@ -122,7 +135,7 @@ class WaiverHistoryControllerTest {
     @Test
     @WithMockUser(roles = ["ECDA_OFFICER"])
     fun `GET waivers includes officer remarks`() {
-        every { centreService.getWaiverHistory(1L) } returns listOf(sampleWaiver())
+        every { centreService.getWaiverHistory(1L, any()) } returns listOf(sampleWaiver())
 
         mockMvc.get("/api/centres/1/waivers").andExpect {
             status { isOk() }

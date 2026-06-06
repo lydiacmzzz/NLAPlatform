@@ -10,37 +10,37 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
-<span class="fc" id="L13">@Component</span>
-<span class="fc" id="L14">class JwtAuthFilter(private val jwtUtil: JwtUtil) : OncePerRequestFilter() {</span>
+<span class="nc" id="L13">@Component</span>
+<span class="nc" id="L14">class JwtAuthFilter(private val jwtUtil: JwtUtil) : OncePerRequestFilter() {</span>
 
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-<span class="fc" id="L21">        val authHeader = request.getHeader(&quot;Authorization&quot;)</span>
-<span class="fc bfc" id="L22" title="All 4 branches covered.">        if (authHeader == null || !authHeader.startsWith(&quot;Bearer &quot;)) {</span>
-<span class="fc" id="L23">            filterChain.doFilter(request, response)</span>
-<span class="fc" id="L24">            return</span>
+<span class="nc" id="L21">        val authHeader = request.getHeader(&quot;Authorization&quot;)</span>
+<span class="nc bnc" id="L22" title="All 4 branches missed.">        if (authHeader == null || !authHeader.startsWith(&quot;Bearer &quot;)) {</span>
+<span class="nc" id="L23">            filterChain.doFilter(request, response)</span>
+<span class="nc" id="L24">            return</span>
         }
 
-<span class="fc" id="L27">        val token = authHeader.substring(7)</span>
-<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (!jwtUtil.isTokenValid(token)) {</span>
-<span class="fc" id="L29">            filterChain.doFilter(request, response)</span>
-<span class="fc" id="L30">            return</span>
+<span class="nc" id="L27">        val token = authHeader.substring(7)</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        if (!jwtUtil.isTokenValid(token)) {</span>
+<span class="nc" id="L29">            filterChain.doFilter(request, response)</span>
+<span class="nc" id="L30">            return</span>
         }
 
-<span class="fc" id="L33">        val username = jwtUtil.extractUsername(token)</span>
-<span class="fc" id="L34">        val role = jwtUtil.extractRole(token)</span>
+<span class="nc" id="L33">        val username = jwtUtil.extractUsername(token)</span>
+<span class="nc" id="L34">        val role = jwtUtil.extractRole(token)</span>
 
-<span class="fc" id="L36">        val auth = UsernamePasswordAuthenticationToken(</span>
-<span class="fc" id="L37">            username,</span>
-<span class="fc" id="L38">            null,</span>
-<span class="fc" id="L39">            listOf(SimpleGrantedAuthority(&quot;ROLE_$role&quot;))</span>
-<span class="fc" id="L40">        ).also { it.details = WebAuthenticationDetailsSource().buildDetails(request) }</span>
+<span class="nc" id="L36">        val auth = UsernamePasswordAuthenticationToken(</span>
+<span class="nc" id="L37">            username,</span>
+<span class="nc" id="L38">            null,</span>
+<span class="nc" id="L39">            listOf(SimpleGrantedAuthority(&quot;ROLE_$role&quot;))</span>
+<span class="nc" id="L40">        ).also { it.details = WebAuthenticationDetailsSource().buildDetails(request) }</span>
 
-<span class="fc" id="L42">        SecurityContextHolder.getContext().authentication = auth</span>
-<span class="fc" id="L43">        filterChain.doFilter(request, response)</span>
-<span class="fc" id="L44">    }</span>
+<span class="nc" id="L42">        SecurityContextHolder.getContext().authentication = auth</span>
+<span class="nc" id="L43">        filterChain.doFilter(request, response)</span>
+<span class="nc" id="L44">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
