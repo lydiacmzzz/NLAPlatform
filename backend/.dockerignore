@@ -1,0 +1,19 @@
+# Gradle build outputs and caches
+.gradle/
+build/
+.kotlin/
+out/
+
+# Avoid sending the conflicting Groovy DSL build file into the Docker context
+build.gradle
+build.gradle.complex
+
+# Test sources (tests run via H2 locally; skipped in Docker build with -x test)
+src/test/
+
+# IDE and OS artefacts
+.idea/
+*.iml
+*.log
+.DS_Store
+Thumbs.db

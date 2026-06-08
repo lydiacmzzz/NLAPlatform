@@ -140,6 +140,50 @@ centre_lifecycle_events	Append-only audit log
 waiver_history	Regulatory waiver records per centre
 
 
+## Run with Docker
+
+An alternative to the local setup above. Requires [Docker Desktop](https://www.docker.com/products/docker-desktop/) (or any Docker + Compose v2 installation). **Docker is optional** — the standard local setup described above continues to work as-is.
+
+### Start everything
+
+```bash
+docker compose up --build
+```
+
+This builds both images and starts three containers:
+
+| Service | URL |
+|---------|-----|
+| Frontend (nginx) | http://localhost:3000 |
+| Backend (Spring Boot) | http://localhost:8080 |
+| PostgreSQL | localhost:5432 |
+
+Flyway migrations run automatically when the backend starts — no manual DB setup needed.
+
+### Stop and remove containers
+
+```bash
+docker compose down
+```
+
+Add `-v` to also delete the PostgreSQL volume (wipes all data):
+
+```bash
+docker compose down -v
+```
+
+### How it works
+
+- **Backend** is built from `backend/Dockerfile` using a two-stage Gradle build (JDK 17 → JRE 17). The Spring datasource URL is overridden via environment variables to point at the `postgres` service.
+- **Frontend** is built from `frontend/Dockerfile` using a two-stage Node build (Node 20 → nginx). nginx proxies all `/api` requests to the backend container — no code changes are required because the frontend already uses a relative `baseURL: '/api'`.
+- **PostgreSQL** uses the official `postgres:16-alpine` image with a named volume so data persists across restarts.
+
+### Notes
+
+- The three test accounts (`officer1`, `HQAAdmin`, `HQACenterLeader1`, password `password`) are seeded via Flyway and available immediately after startup.
+- If you change backend source code, re-run `docker compose up --build` to rebuild the image.
+- Port 5432 is exposed so you can connect with a local SQL client (e.g. pgAdmin, DBeaver) using host `localhost`, user `postgres`, password `postgres`, database `postgres`.
+
 ---
 
 Key changes from the previous version:
